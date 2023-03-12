@@ -1,20 +1,18 @@
-## Task Management Backend
+# Task Management Backend
 
----
-
-### To get started, follow these steps:
+## To get started, follow these steps:
 
 - install dependencies: `npm install`
 - start the server: `npm run dev`
 - send requests to `localhost:5000`
 
-### Features
+## Features
 
 - Authentication
 - CRUD operations for tasks
 - CRUD operations for users
 
-### Dependencies
+## Dependencies
 
 - express
 - mongoose
@@ -23,19 +21,19 @@
 - dotenv
 - cors
 
-### Dev Dependencies
+## Dev Dependencies
 
 - nodemon
 
-### Environment Variables
+## Environment Variables
 
 - [MONGO_URI]
 - [JWT_SECRET]
 
-### API Endpoints
+## API Endpoints
 
 // todo add endpoints
 
-### License
+## License
 
 This project is licensed under the MIT license. See the LICENSE file for more information.
