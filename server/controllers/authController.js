@@ -111,6 +111,22 @@ module.exports.refreshToken = async (req, res) => {
 };
 
 /**
+ * @path POST /api/auth/logout
+ * @desc clear user cookie and logout
+ * @access Private
+ */
+module.exports.logoutUser = (req, res) => {
+  try {
+    res.clearCookie('refresh-token');
+    res.status(200).json({ message: 'success' });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Internal server error. something went wrong' });
+  }
+};
+
+/**
  * @path POST /api/auth/me
  * @desc return current user info
  * @access Private
