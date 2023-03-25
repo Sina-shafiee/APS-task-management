@@ -1,34 +1,10 @@
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
-  MenuItem,
-  Container,
-  Avatar,
-  Tooltip
-} from '@mui/material';
+import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 
 import { Adb } from '@mui/icons-material';
-import { MouseEvent, useState } from 'react';
-import { useColors } from '../../../hooks';
-import { StyledThemeToggle } from '../../../components';
 import { Link } from 'react-router-dom';
+import NavbarMenu from './NavbarMenu';
 
 function Navbar() {
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const { isDark, toggleTheme } = useColors();
-
-  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
     <AppBar position='static'>
       <Container maxWidth='lg'>
@@ -72,45 +48,7 @@ function Navbar() {
             LOGO
           </Typography>
 
-          <Box sx={{ ml: 'auto' }}>
-            <Tooltip title='menu'>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt=' Sharp'
-                  src='https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250'
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px', width: '350px' }}
-              id='menu-appbar'
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography component={Link} to='/user/profile'>
-                  User Profile
-                </Typography>
-              </MenuItem>
-              <MenuItem sx={{ pl: 1, mt: 0.3 }}>
-                <StyledThemeToggle
-                  checked={isDark}
-                  onChange={toggleTheme}
-                  inputProps={{ 'aria-label': 'toggle theme' }}
-                />
-              </MenuItem>
-            </Menu>
-          </Box>
+          <NavbarMenu />
         </Toolbar>
       </Container>
     </AppBar>
