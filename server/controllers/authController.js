@@ -141,3 +141,20 @@ module.exports.getCurrentUser = (req, res) => {
       .json({ message: 'Internal server error. Something went wrong' });
   }
 };
+
+module.exports.updateCurrentUser = async (req, res) => {
+  const { _id } = req.currentUser;
+  const { name, skills, social, language } = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      _id,
+      { name, skills, social, language },
+      { new: true }
+    );
+    res.status(200).json({ message: 'success', user: updatedUser });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Internal server error. Something went wrong' });
+  }
+};

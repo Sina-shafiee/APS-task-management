@@ -4,7 +4,8 @@ const {
   login,
   refreshToken,
   getCurrentUser,
-  logoutUser
+  logoutUser,
+  updateCurrentUser
 } = require('../controllers/authController');
 const verifyUser = require('../middlewares/verifyUser');
 
@@ -15,5 +16,6 @@ router.post('/login', login);
 router.get('/refresh', refreshToken);
 router.get('/logout', logoutUser);
 router.get('/me', verifyUser, getCurrentUser);
+router.patch('/me', verifyUser, updateCurrentUser);
 
 module.exports = router;

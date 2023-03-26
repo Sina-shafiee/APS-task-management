@@ -16,8 +16,8 @@ const userSchema = new Schema(
       required: true
     },
     social: {
-      linkedin: { type: String },
-      github: { type: String }
+      linkedin: String,
+      github: String
     },
     role: {
       type: String,
