@@ -88,7 +88,7 @@ module.exports.login = async (req, res) => {
 /**
  * @path POST /api/auth/refresh
  * @desc checks the refresh token on cookie send new access token
- * @access Private
+ * @access Private user & admin
  */
 module.exports.refreshToken = async (req, res) => {
   const cookie = req.headers.cookie;
@@ -127,9 +127,9 @@ module.exports.logoutUser = (req, res) => {
 };
 
 /**
- * @path POST /api/auth/me
+ * @path GET /api/auth/me
  * @desc return current user info
- * @access Private
+ * @access Private user & admin
  */
 module.exports.getCurrentUser = (req, res) => {
   try {
@@ -142,6 +142,11 @@ module.exports.getCurrentUser = (req, res) => {
   }
 };
 
+/**
+ * @path PATCH /api/auth/me
+ * @desc update current user
+ * @access Private user & admin
+ */
 module.exports.updateCurrentUser = async (req, res) => {
   const { _id } = req.currentUser;
   const { name, skills, social, language } = req.body;
