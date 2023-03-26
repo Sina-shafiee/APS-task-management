@@ -44,7 +44,7 @@ export const UserProfile = () => {
             variant='h5'
             sx={{
               textAlign: { xs: 'start', md: 'center' },
-              fontSize: { xs: '2rem', md: '2rem', lg: '2.8rem' },
+              fontSize: { xs: '2rem', md: '2rem', lg: '2.2rem' },
               mt: -4
             }}
             component='h1'
