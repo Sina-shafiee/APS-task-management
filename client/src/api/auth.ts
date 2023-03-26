@@ -15,12 +15,8 @@ export const getCurrentUser = (): Promise<AxiosResponse<User, any>> => {
   return baseApi.get('/auth/me');
 };
 
-export const logoutUser = async (): Promise<string> => {
-  const { data } = await baseApi.get('/auth/logout');
-
-  console.log(data);
-
-  return data?.message;
+export const logoutUser = () => {
+  return baseApi.get('/auth/logout');
 };
 
 export const refreshToken = async (): Promise<string> => {

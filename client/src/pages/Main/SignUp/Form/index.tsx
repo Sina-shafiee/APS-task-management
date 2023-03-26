@@ -8,7 +8,7 @@ import { Stack, TextField } from '@mui/material';
 
 import { signUp } from '../../../../api';
 
-import { ValidationError } from '../../components/ValidationError';
+import { ValidationError } from '../../../../components';
 import { FormFooter } from '../../components/FormFooter';
 
 import { CustomErrorType } from '../../index.types';

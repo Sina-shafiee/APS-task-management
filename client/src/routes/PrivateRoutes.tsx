@@ -1,5 +1,4 @@
 import type { PropsWithChildren } from 'react';
-import { CircularProgress, Stack, Typography } from '@mui/material';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { useQuery } from 'react-query';
@@ -14,24 +13,14 @@ const PrivateRoutes = ({ children }: PropsWithChildren) => {
     queryKey: ['current-user'],
     queryFn: getCurrentUser,
     retry: false,
-    staleTime: 1000 * 60 * 2
+    staleTime: Infinity
   });
 
   const location = useLocation();
 
   if (isLoading) {
-    return (
-      <Stack
-        height='100vh'
-        direction='column'
-        justifyContent='center'
-        alignItems='center'
-        gap='1rem'
-      >
-        <Typography variant='h6'>Verifying User..</Typography>
-        <CircularProgress />
-      </Stack>
-    );
+    // todo return loading component
+    return <></>;
   }
 
   if (isError) {

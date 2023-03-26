@@ -3,7 +3,7 @@ import MainLayout from '../Layout/MainLayout';
 import UserLayout from '../Layout/UserLayout';
 
 import { Login, SignUp } from '../pages/Main';
-import { UserIndex } from '../pages/Panel/User';
+import { UserIndex, UserProfile } from '../pages/Panel/User';
 import PrivateRoutes from './PrivateRoutes';
 
 const Routes = () => {
@@ -26,7 +26,7 @@ const Routes = () => {
       path: '/user/*',
       children: [
         { index: true, element: <UserIndex /> },
-        { path: 'login', element: <Login /> }
+        { path: 'profile', element: <UserProfile /> }
       ]
     }
   ];

@@ -16,10 +16,23 @@ import { StyledThemeToggle } from '../../../components';
 
 import { useColors } from '../../../hooks';
 import { logoutUser } from '../../../api/auth';
+import { useMutation, useQueryClient } from 'react-query';
 
 const NavbarMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const { isDark, toggleTheme } = useColors();
+
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: logoutUser,
+    onSuccess: (res) => {
+      if (res.data.message === 'success') {
+        queryClient.clear();
+        navigate('/');
+        toast.success('logged out');
+      }
+    }
+  });
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -31,17 +44,9 @@ const NavbarMenu = () => {
 
   const navigate = useNavigate();
 
-  const handelLogout = async () => {
-    try {
-      const message = await logoutUser();
-      if (message === 'success') {
-        navigate('/');
-        setAnchorElUser(null);
-        toast.success('logged out');
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const handelLogout = () => {
+    mutate();
+    setAnchorElUser(null);
   };
 
   return (

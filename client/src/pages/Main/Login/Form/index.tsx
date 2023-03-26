@@ -3,7 +3,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Stack, TextField } from '@mui/material';
 
 import { FormFooter } from '../../components/FormFooter';
-import { ValidationError } from '../../components/ValidationError';
+import { ValidationError } from '../../../../components';
 import { UserLoginType } from '../../../../types';
 import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
@@ -22,35 +22,33 @@ const Form = () => {
 
   const navigate = useNavigate();
 
-  const { mutate, isLoading } = useMutation(
-    (data: UserLoginType) => {
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (data: UserLoginType) => {
       return login(data);
     },
-    {
-      onSuccess: async (res) => {
-        const {
-          message,
-          access_token,
-          user: { role }
-        } = res.data;
-        if (message === 'success') {
-          toast.info('Info: #Logged In!');
-          baseApi.defaults.headers.common.Authorization = `Bearer ${access_token}`;
-          if (role === 'user') {
-            return navigate('/user', { replace: false });
-          }
-
-          return navigate('/admin', { replace: true });
+    onSuccess: async (res) => {
+      const {
+        message,
+        access_token,
+        user: { role }
+      } = res.data;
+      if (message === 'success') {
+        toast.info('Info: #Logged In!');
+        baseApi.defaults.headers.common.Authorization = `Bearer ${access_token}`;
+        if (role === 'user') {
+          return navigate('/user', { replace: false });
         }
-      },
-      onError: (data: AxiosError<CustomErrorType>) => {
-        const message: string =
-          data?.response?.data?.message ||
-          'Something went wrong please try again later';
-        toast.error(`Error #${message}`);
+
+        return navigate('/admin', { replace: true });
       }
+    },
+    onError: (data: AxiosError<CustomErrorType>) => {
+      const message: string =
+        data?.response?.data?.message ||
+        'Something went wrong please try again later';
+      toast.error(`Error #${message}`);
     }
-  );
+  });
 
   const SubmitForm: SubmitHandler<FieldValues> = (data) => {
     const { email, password } = data;

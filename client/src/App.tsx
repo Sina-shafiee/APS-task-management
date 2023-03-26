@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Routes from './routes/Routes';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 const queryClient = new QueryClient();
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           pauseOnHover
           theme={isDark ? 'dark' : 'light'}
         />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ThemeProvider>
   );

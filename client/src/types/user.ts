@@ -7,4 +7,18 @@ export type User = {
   updatedAt: string;
   skills: string[];
   language: string[];
+  social: {
+    github: string;
+    linkedin: string;
+  };
+};
+
+export type UpdateUser = {
+  name: string;
+  skills: string[];
+  language: string[];
+  social: {
+    github: string;
+    linkedin: string;
+  };
 };

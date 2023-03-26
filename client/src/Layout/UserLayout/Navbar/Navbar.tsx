@@ -9,7 +9,7 @@ function Navbar() {
     <AppBar position='static'>
       <Container maxWidth='lg'>
         <Toolbar disableGutters>
-          <Adb sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Adb sx={{ display: 'flex', mr: 1 }} />
           <Typography
             variant='h6'
             noWrap
@@ -17,7 +17,7 @@ function Navbar() {
             to='/user'
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              display: 'flex',
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '0.3rem',
@@ -26,26 +26,6 @@ function Navbar() {
             }}
           >
             TASKDO
-          </Typography>
-
-          <Adb sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant='h5'
-            noWrap
-            component='a'
-            href=''
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none'
-            }}
-          >
-            LOGO
           </Typography>
 
           <NavbarMenu />
