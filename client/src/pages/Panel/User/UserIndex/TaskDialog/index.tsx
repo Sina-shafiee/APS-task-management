@@ -1,9 +1,12 @@
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from '@mui/material';
+import { AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 import { toggleIsCompleted } from '../../../../../api/tasks';
 import { Task } from '../../../../../types/task';
@@ -25,7 +28,20 @@ const TaskDialog = ({
   const { mutate, isLoading } = useMutation({
     mutationFn: toggleIsCompleted,
     onSuccess() {
-      queryClient.invalidateQueries(['user-tasks']);
+      const res: AxiosResponse<Task[]> | undefined =
+        queryClient.getQueryData('user-tasks');
+
+      if (res) {
+        const newData = res.data.map((task) => {
+          if (task._id === _id) {
+            task.isCompleted = !task.isCompleted;
+            return task;
+          }
+          return task;
+        });
+        res.data = newData;
+        queryClient.setQueryData('user-tasks', res);
+      }
     }
   });
 
