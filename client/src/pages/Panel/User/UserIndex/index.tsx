@@ -1,27 +1,37 @@
 import { Typography } from '@mui/material';
-import { Container, Stack } from '@mui/system';
+import { Container } from '@mui/system';
+import { AxiosError } from 'axios';
+import { useQuery } from 'react-query';
+import { getUserTasks } from '../../../../api/tasks';
+import NoTaskMessage from './NoTaskMessage';
+import TasksSkeleton from './Skeleton';
+import TaskList from './TaskList';
 
 export const UserIndex = () => {
+  const { data, isLoading, error, isError, isFetching } = useQuery<
+    any,
+    AxiosError
+  >({
+    queryFn: getUserTasks,
+    queryKey: ['user-tasks'],
+    retry: false,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false
+  });
+
   return (
-    <Container component='main'>
-      <Stack
-        direction='column'
-        justifyContent='center'
-        alignItems='center'
-        maxWidth='lg'
-        sx={{ height: '80vh' }}
-      >
-        <Typography
-          align='center'
-          variant='h4'
-          sx={{ fontSize: { xs: '1.5rem', sm: '2rem', md: '3rem' } }}
-        >
-          Great News No new task!
+    <Container component='main' maxWidth='lg'>
+      {isLoading ? (
+        <TasksSkeleton />
+      ) : isError && error?.response?.status === 404 ? (
+        <NoTaskMessage />
+      ) : data ? (
+        <TaskList isFetching={isFetching} tasks={data?.data} />
+      ) : (
+        <Typography align='center' variant='h4'>
+          Something went wrong
         </Typography>
-        <Typography align='center' variant='body1'>
-          Send your account email to admins they will assign new tasks
-        </Typography>
-      </Stack>
+      )}
     </Container>
   );
 };

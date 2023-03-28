@@ -20,10 +20,12 @@ module.exports.getUsers = async (_, res) => {
  * @access PRIVATE
  */
 module.exports.createUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
   if (!name || !email || !password) {
-    res.status(400).json({ message: 'All fields are require' });
+    res
+      .status(400)
+      .json({ message: 'name, email and password field are require' });
   }
 
   try {

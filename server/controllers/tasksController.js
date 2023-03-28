@@ -7,7 +7,7 @@ const Task = require('../models/taskModel');
  */
 module.exports.getAllTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({});
+    const tasks = await Task.find({}).sort('-createdAt');
     if (!tasks.length) {
       return res.status(404).json({ message: 'No task found' });
     }
@@ -26,7 +26,7 @@ module.exports.getAllTasks = async (req, res) => {
 module.exports.getUserTasks = async (req, res) => {
   const { _id } = req.currentUser;
   try {
-    const tasks = await Task.find({ userId: _id });
+    const tasks = await Task.find({ userId: _id }).sort('-createdAt');
     if (!tasks.length) {
       return res.status(404).json({ message: 'No task found' });
     }
