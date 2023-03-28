@@ -10,7 +10,8 @@ import {
   Box,
   Menu,
   MenuItem,
-  Typography
+  Typography,
+  Divider
 } from '@mui/material';
 import { StyledThemeToggle } from '../../../components';
 
@@ -74,18 +75,33 @@ const NavbarMenu = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={handleCloseUserMenu}>
+        <MenuItem sx={{ p: 0 }} onClick={handleCloseUserMenu}>
           <Typography
-            sx={{ textDecoration: 'none', color: 'inherit' }}
+            sx={{
+              py: 1,
+              px: 1.5,
+              textDecoration: 'none',
+              color: 'inherit',
+              width: '100%'
+            }}
             component={Link}
             to='/user/profile'
           >
             User Profile
           </Typography>
         </MenuItem>
-        <MenuItem onClick={handelLogout}>
+
+        <Divider sx={{ width: '90%', mx: 'auto' }} />
+
+        <MenuItem
+          sx={{ width: '180px', py: 1, px: 1.5 }}
+          onClick={handelLogout}
+        >
           <Typography>Log out</Typography>
         </MenuItem>
+
+        <Divider sx={{ width: '90%', mx: 'auto' }} />
+
         <MenuItem sx={{ pl: 1, mt: 0.3 }}>
           <StyledThemeToggle
             checked={isDark}
