@@ -20,7 +20,7 @@ export const UserIndex = () => {
   });
 
   return (
-    <Container component='main' maxWidth='lg'>
+    <Container component='main' maxWidth='lg' sx={{ py: 4 }}>
       {isLoading ? (
         <TasksSkeleton />
       ) : isError && error?.response?.status === 404 ? (

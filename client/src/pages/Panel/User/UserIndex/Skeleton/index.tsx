@@ -1,10 +1,9 @@
-import { Card, Grid, Skeleton } from '@mui/material';
-import { Container } from '@mui/system';
+import { Card, Grid, Skeleton, Stack } from '@mui/material';
 
 const TasksSkeleton = () => {
   return (
-    <Container maxWidth='lg' sx={{ marginTop: 6 }}>
-      <Skeleton width='170px' height='40px' animation='wave' />
+    <Stack maxWidth='lg' sx={{ marginTop: 6, p: 0 }}>
+      <Skeleton width='170px' height='50px' animation='wave' />
       <Grid rowSpacing={4} columnSpacing={2} container marginTop={4}>
         {new Array(4).fill(0).map((_, index) => (
           <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
@@ -21,7 +20,7 @@ const TasksSkeleton = () => {
           </Grid>
         ))}
       </Grid>
-    </Container>
+    </Stack>
   );
 };
 

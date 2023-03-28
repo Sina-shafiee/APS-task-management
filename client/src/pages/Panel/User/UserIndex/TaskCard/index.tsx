@@ -40,8 +40,13 @@ const TaskCard = ({
     <Grid item xs={12} sm={6} md={4} lg={3} sx={{ position: 'relative' }}>
       <Card>
         <CardContent>
-          <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
-            {title}
+          <Typography
+            variant='h5'
+            component='h4'
+            color='text.secondary'
+            gutterBottom
+          >
+            {title.length > 15 ? title.slice(0, 15) + '..' : title}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color='text.secondary'>
             {desc.length > 30 ? desc.slice(0, 30) + '..' : desc}
