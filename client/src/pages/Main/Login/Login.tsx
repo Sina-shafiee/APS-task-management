@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material';
 import Form from './Form';
 
-export const Login = () => {
+const Login = () => {
   return (
     <Container
       component='main'
@@ -20,3 +20,5 @@ export const Login = () => {
     </Container>
   );
 };
+
+export default Login;

@@ -7,7 +7,7 @@ import Form from './Form';
 
 import bg from '../../../../assets/profile-bg.svg';
 
-export const UserProfile = () => {
+const UserProfile = () => {
   const queryClient = useQueryClient();
   const { mutate, data: response } = useMutation({
     mutationFn: updateCurrentUser,
@@ -59,3 +59,5 @@ export const UserProfile = () => {
     </Container>
   );
 };
+
+export default UserProfile;

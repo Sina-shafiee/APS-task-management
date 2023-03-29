@@ -2,9 +2,11 @@ import { useRoutes } from 'react-router-dom';
 import MainLayout from '../Layout/MainLayout';
 import UserLayout from '../Layout/UserLayout';
 
-import { Login, SignUp } from '../pages/Main';
-import { UserIndex, UserProfile } from '../pages/Panel/User';
-import PrivateRoutes from './PrivateRoutes';
+import Login from '../pages/Main/Login/Login';
+import SignUp from '../pages/Main/SignUp/SignUp';
+import UserIndex from '../pages/Panel/User/UserIndex/UserIndex';
+import UserProfile from '../pages/Panel/User/UserProfile/UserProfile';
+import ProtectedRoute from './ProtectedRoute';
 
 const Routes = () => {
   const mainRoutes = [
@@ -19,9 +21,9 @@ const Routes = () => {
   const userRoutes = [
     {
       element: (
-        <PrivateRoutes>
+        <ProtectedRoute>
           <UserLayout />
-        </PrivateRoutes>
+        </ProtectedRoute>
       ),
       path: '/user/*',
       children: [
@@ -33,9 +35,9 @@ const Routes = () => {
   const adminRoutes = [
     {
       element: (
-        <PrivateRoutes>
+        <ProtectedRoute>
           <UserLayout />
-        </PrivateRoutes>
+        </ProtectedRoute>
       ),
       path: '/admin/*',
       children: [

@@ -13,6 +13,8 @@ import {
   Typography,
   Divider
 } from '@mui/material';
+import { Logout, Person } from '@mui/icons-material';
+
 import { StyledThemeToggle } from '../../../components';
 
 import { useColors } from '../../../hooks';
@@ -75,14 +77,22 @@ const NavbarMenu = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem sx={{ p: 0 }} onClick={handleCloseUserMenu}>
+        <MenuItem
+          sx={{
+            p: 0,
+            display: 'flex',
+            gap: 1,
+            alignItems: 'center',
+            py: 1,
+            px: 1.5
+          }}
+          onClick={handleCloseUserMenu}
+        >
+          <Person />
           <Typography
             sx={{
-              py: 1,
-              px: 1.5,
               textDecoration: 'none',
-              color: 'inherit',
-              width: '100%'
+              color: 'inherit'
             }}
             component={Link}
             to='/user/profile'
@@ -94,15 +104,22 @@ const NavbarMenu = () => {
         <Divider sx={{ width: '90%', mx: 'auto' }} />
 
         <MenuItem
-          sx={{ width: '180px', py: 1, px: 1.5 }}
+          sx={{
+            width: '180px',
+            py: 1,
+            px: 1.5,
+            display: 'flex',
+            gap: 1,
+            alignItems: 'center'
+          }}
           onClick={handelLogout}
         >
-          <Typography>Log out</Typography>
+          <Logout /> Logout
         </MenuItem>
 
         <Divider sx={{ width: '90%', mx: 'auto' }} />
 
-        <MenuItem sx={{ pl: 1, mt: 0.3 }}>
+        <MenuItem sx={{ pl: 1, mt: 0 }}>
           <StyledThemeToggle
             checked={isDark}
             onChange={toggleTheme}

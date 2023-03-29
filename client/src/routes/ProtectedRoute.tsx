@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getCurrentUser } from '../api/auth';
 
-const PrivateRoutes = ({ children }: PropsWithChildren) => {
+const ProtectedRoute = ({ children }: PropsWithChildren) => {
   const {
     data: response,
     isLoading,
@@ -13,7 +13,13 @@ const PrivateRoutes = ({ children }: PropsWithChildren) => {
     queryKey: ['current-user'],
     queryFn: getCurrentUser,
     retry: false,
-    staleTime: Infinity
+    staleTime: Infinity,
+    onError: () => {
+      console.clear();
+    },
+    onSuccess: () => {
+      console.clear();
+    }
   });
 
   const location = useLocation();
@@ -38,4 +44,4 @@ const PrivateRoutes = ({ children }: PropsWithChildren) => {
   return <>{children}</>;
 };
 
-export default PrivateRoutes;
+export default ProtectedRoute;

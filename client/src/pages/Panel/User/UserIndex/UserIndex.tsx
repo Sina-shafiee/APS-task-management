@@ -7,7 +7,7 @@ import NoTaskMessage from './NoTaskMessage';
 import TasksSkeleton from './Skeleton';
 import TaskList from './TaskList';
 
-export const UserIndex = () => {
+const UserIndex = () => {
   const { data, isLoading, error, isError, isFetching } = useQuery<
     any,
     AxiosError
@@ -35,3 +35,5 @@ export const UserIndex = () => {
     </Container>
   );
 };
+
+export default UserIndex;

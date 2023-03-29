@@ -5,7 +5,6 @@ import { useColors } from '../../hooks/useColors';
 
 const MainLayout = () => {
   const { toggleTheme, isDark } = useColors();
-
   return (
     <>
       <Button
