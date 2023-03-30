@@ -15,7 +15,8 @@ const LayoutSidebar = () => {
         height: '100vh',
         position: 'sticky',
         top: 0,
-        left: 0
+        left: 0,
+        zIndex: 9999
       }}
     >
       <Sidebar
@@ -27,7 +28,7 @@ const LayoutSidebar = () => {
             flexDirection: 'column'
           }
         }}
-        backgroundColor={isDark ? '#323232' : '#0022ac'}
+        backgroundColor={isDark ? '#272727' : '#1976d2'}
       >
         <SidebarHeader />
         <SidebarContent />

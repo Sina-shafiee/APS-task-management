@@ -1,41 +1,59 @@
-import { Close, Menu } from '@mui/icons-material';
-import { Stack, Typography, Box } from '@mui/material';
-import { useProSidebar } from 'react-pro-sidebar';
+import { Adb, Close, Menu as MenuIcon } from '@mui/icons-material';
+import { Typography } from '@mui/material';
+import { Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
 
 const SidebarHeader = () => {
-  const { collapsed, collapseSidebar } = useProSidebar();
+  const { collapseSidebar, collapsed, broken, toggleSidebar } = useProSidebar();
   return (
-    <Stack sx={{ px: '28px', mt: '1rem', color: '#fefefe' }}>
-      {!collapsed ? (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-
-            mb: 1.1
-          }}
-        >
-          <Typography variant='h6'>TASKDO</Typography>
-          <Box
+    <Menu
+      menuItemStyles={{
+        button: {
+          color: '#fefefe',
+          '&:hover': {
+            backgroundColor: 'transparent'
+          }
+        }
+      }}
+      style={{ marginTop: '1rem', color: '#fefefe' }}
+    >
+      <MenuItem
+        style={{ cursor: 'auto' }}
+        suffix={
+          <Close
+            style={{ cursor: 'pointer' }}
             onClick={() => {
-              collapseSidebar();
+              broken ? toggleSidebar() : collapseSidebar();
             }}
-          >
-            <Close sx={{ fontSize: '1.7rem', cursor: 'pointer' }} />
-          </Box>
-        </Box>
-      ) : (
-        <Box
-          sx={{ display: 'grid', placeContent: 'center', cursor: 'pointer' }}
-          onClick={() => {
-            collapseSidebar();
+          />
+        }
+        icon={
+          collapsed ? (
+            <MenuIcon
+              onClick={() => {
+                collapseSidebar();
+              }}
+              sx={{ fontSize: '2rem', cursor: 'pointer' }}
+            />
+          ) : (
+            <Adb />
+          )
+        }
+      >
+        <Typography
+          sx={{
+            mr: 2,
+            display: 'flex',
+            fontFamily: 'monospace',
+            fontWeight: 700,
+            letterSpacing: '0.3rem',
+            color: 'inherit',
+            textDecoration: 'none'
           }}
         >
-          <Menu sx={{ fontSize: '2.7rem' }} />
-        </Box>
-      )}
-    </Stack>
+          TASKDO
+        </Typography>
+      </MenuItem>
+    </Menu>
   );
 };
 
