@@ -8,7 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Routes from './routes/Routes';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+// import { ReactQueryDevtools } from 'react-query/devtools';
+import { ProSidebarProvider } from 'react-pro-sidebar';
 const queryClient = new QueryClient();
 
 function App() {
@@ -17,21 +18,22 @@ function App() {
   return (
     <ThemeProvider theme={isDark ? createTheme(dark) : createTheme(light)}>
       <QueryClientProvider client={queryClient}>
-        <CssBaseline />
-        <Routes />
-        <ToastContainer
-          position='top-right'
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable={false}
-          pauseOnHover
-          theme={isDark ? 'dark' : 'light'}
-        />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ProSidebarProvider>
+          <CssBaseline />
+          <Routes />
+          <ToastContainer
+            position='top-right'
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable={false}
+            pauseOnHover
+            theme={isDark ? 'dark' : 'light'}
+          />
+        </ProSidebarProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

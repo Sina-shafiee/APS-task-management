@@ -1,9 +1,11 @@
 import { useRoutes } from 'react-router-dom';
+import AdminLayout from '../Layout/AdminLayout';
 import MainLayout from '../Layout/MainLayout';
 import UserLayout from '../Layout/UserLayout';
 
 import Login from '../pages/Main/Login/Login';
 import SignUp from '../pages/Main/SignUp/SignUp';
+import AdminIndex from '../pages/Panel/admin/AdminIndex/AdminIndex';
 import UserIndex from '../pages/Panel/User/UserIndex/UserIndex';
 import UserProfile from '../pages/Panel/User/UserProfile/UserProfile';
 import ProtectedRoute from './ProtectedRoute';
@@ -36,12 +38,12 @@ const Routes = () => {
     {
       element: (
         <ProtectedRoute>
-          <UserLayout />
+          <AdminLayout />
         </ProtectedRoute>
       ),
       path: '/admin/*',
       children: [
-        { index: true, element: <UserIndex /> },
+        { index: true, element: <AdminIndex /> },
         { path: 'login', element: <Login /> }
       ]
     }
