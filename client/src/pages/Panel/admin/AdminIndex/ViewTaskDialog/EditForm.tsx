@@ -3,9 +3,9 @@ import {
   Button,
   Stack,
   TextField,
-  Typography
+  Typography,
+  Box
 } from '@mui/material';
-import { Box } from '@mui/system';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
