@@ -33,8 +33,6 @@ const EditForm = ({
   title,
   desc
 }: EditFormProps) => {
-  // todo add user select field
-
   const {
     register,
     handleSubmit,
