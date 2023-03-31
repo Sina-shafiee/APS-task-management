@@ -16,6 +16,8 @@ const TaskList = ({ tasks, isFetching }: TaskListProps) => {
       <Grid marginTop={4} container spacing={2}>
         {tasks.map((task) => (
           <TaskCard
+            createdAt={task.createdAt}
+            userId={task.userId}
             key={task._id}
             _id={task._id}
             desc={task.desc}

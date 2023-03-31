@@ -17,7 +17,9 @@ export type TaskCardProps = {
   title: string;
   desc: string;
   isCompleted: boolean;
+  userId: string;
   isFetching: boolean;
+  createdAt: string;
 };
 
 const TaskCard = ({
@@ -25,7 +27,9 @@ const TaskCard = ({
   desc,
   isCompleted,
   title,
-  isFetching
+  isFetching,
+  userId,
+  createdAt
 }: TaskCardProps) => {
   const [open, setOpen] = useState(false);
 
@@ -58,6 +62,8 @@ const TaskCard = ({
           </Button>
           {open && (
             <TaskDialog
+              createdAt={createdAt}
+              userId={userId}
               _id={_id}
               title={title}
               desc={desc}
