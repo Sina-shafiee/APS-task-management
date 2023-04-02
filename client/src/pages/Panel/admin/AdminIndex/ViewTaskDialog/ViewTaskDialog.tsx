@@ -1,6 +1,7 @@
 import { Box, Button, Dialog, DialogActions } from '@mui/material';
 import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { deleteTask } from '../../../../../api/tasks';
 import { getSingleUser } from '../../../../../api/user';
 import { Task } from '../../../../../types/task';
 import EditForm from './EditForm';
@@ -19,6 +20,7 @@ const ViewTaskDialog = ({
   createdAt,
   _id
 }: ViewTaskDialogProps) => {
+  const queryClient = useQueryClient();
   const { data, isLoading } = useQuery({
     queryKey: ['user', userId],
     staleTime: Infinity,
@@ -35,6 +37,17 @@ const ViewTaskDialog = ({
   const setNotEditing = () => {
     setIsEditing(false);
   };
+
+  const { mutate } = useMutation({
+    mutationFn: deleteTask,
+    onSuccess: (res) => {
+      const prevTaskList: Task[] | undefined =
+        queryClient.getQueryData('all-tasks');
+      const filterDeleted = prevTaskList?.filter((task) => task._id !== _id);
+
+      queryClient.setQueryData('all-tasks', filterDeleted);
+    }
+  });
 
   return (
     <Dialog open={true} maxWidth='sm' fullWidth={true} onClose={closeModal}>
@@ -55,7 +68,11 @@ const ViewTaskDialog = ({
               Close
             </Button>
             <Box>
-              <Button color='warning' variant='contained'>
+              <Button
+                onClick={() => mutate(_id)}
+                color='warning'
+                variant='contained'
+              >
                 Delete
               </Button>
               <Button

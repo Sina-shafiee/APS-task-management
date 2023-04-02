@@ -36,7 +36,7 @@ const Form = () => {
         toast.info('Info: #Logged In!');
         baseApi.defaults.headers.common.Authorization = `Bearer ${access_token}`;
         if (role === 'user') {
-          return navigate('/user', { replace: false });
+          return navigate('/user', { replace: true });
         }
 
         return navigate('/admin', { replace: true });

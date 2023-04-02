@@ -10,7 +10,6 @@ const TaskList = () => {
     staleTime: Infinity
   });
 
-  console.log(data);
   if (isLoading) {
     // todo render skeleton
     return <></>;

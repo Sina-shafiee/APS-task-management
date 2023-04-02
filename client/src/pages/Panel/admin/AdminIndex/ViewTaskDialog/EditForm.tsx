@@ -73,6 +73,7 @@ const EditForm = ({
     queryFn: getAllUsers,
     staleTime: Infinity,
     cacheTime: Infinity,
+
     select: (data) => {
       return data.data.filter((user) => {
         if (user.role === 'user') {
@@ -87,6 +88,8 @@ const EditForm = ({
 
   const { mutate, isLoading: isUpdating } = useMutation({
     mutationFn: updateTask,
+    retry: 2,
+    mutationKey: 'update-task',
     onSuccess: (res) => {
       const prevData = queryClient.getQueryData('all-tasks') as Task[];
       const updatedData = prevData.map((task) => {
@@ -128,6 +131,9 @@ const EditForm = ({
             <>
               <Autocomplete
                 readOnly={isLoadingUsers}
+                ListboxProps={{
+                  style: { maxHeight: '129px' }
+                }}
                 value={
                   value
                     ? users?.find((user) => {
@@ -139,8 +145,6 @@ const EditForm = ({
                   return option.email;
                 }}
                 onChange={(event: any, newValue) => {
-                  console.log(newValue);
-
                   onChange(newValue ? newValue._id : null);
                 }}
                 id='controllable-states-demo'

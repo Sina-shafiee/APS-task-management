@@ -29,3 +29,15 @@ export const updateTask = (newData: {
 }): Promise<AxiosResponse<Task>> => {
   return baseApi.patch(`/tasks/${newData.taskId}`, newData);
 };
+
+export const createTask = (newData: {
+  title: string;
+  desc: string;
+  userId?: string;
+}): Promise<AxiosResponse<Task>> => {
+  return baseApi.post(`/tasks`, newData);
+};
+
+export const deleteTask = (taskId: string) => {
+  return baseApi.delete(`/tasks/${taskId}`);
+};

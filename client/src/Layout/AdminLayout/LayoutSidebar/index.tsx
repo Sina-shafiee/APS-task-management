@@ -16,7 +16,7 @@ const LayoutSidebar = () => {
         position: 'sticky',
         top: 0,
         left: 0,
-        zIndex: 1100
+        zIndex: 1210
       }}
     >
       <Sidebar
