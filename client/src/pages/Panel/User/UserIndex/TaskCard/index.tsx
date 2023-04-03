@@ -49,11 +49,29 @@ const TaskCard = ({
             component='h4'
             color='text.secondary'
             gutterBottom
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: '1',
+              WebkitBoxOrient: 'vertical',
+              textTransform: 'capitalize'
+            }}
           >
-            {title.length > 15 ? title.slice(0, 15) + '..' : title}
+            {title}
           </Typography>
-          <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-            {desc.length > 30 ? desc.slice(0, 30) + '..' : desc}
+          <Typography
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: '1',
+              WebkitBoxOrient: 'vertical',
+              textTransform: 'lowercase'
+            }}
+            color='text.secondary'
+          >
+            {desc}
           </Typography>
         </CardContent>
         <CardActions>

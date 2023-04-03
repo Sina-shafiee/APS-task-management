@@ -39,7 +39,8 @@ const TaskCard = ({
               textOverflow: 'ellipsis',
               display: '-webkit-box',
               WebkitLineClamp: '1',
-              WebkitBoxOrient: 'vertical'
+              WebkitBoxOrient: 'vertical',
+              textTransform: 'capitalize !important'
             }}
             variant='h5'
             component='h4'
@@ -53,7 +54,8 @@ const TaskCard = ({
               textOverflow: 'ellipsis',
               display: '-webkit-box',
               WebkitLineClamp: '1',
-              WebkitBoxOrient: 'vertical'
+              WebkitBoxOrient: 'vertical',
+              textTransform: 'lowercase'
             }}
             color='text.secondary'
           >

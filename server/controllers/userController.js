@@ -56,7 +56,7 @@ module.exports.createUser = async (req, res) => {
 };
 
 /**
- * @path GET /api/users/:id
+ * @path PATCH /api/users/:userId
  * @desc update user
  * @access PRIVATE
  */
@@ -78,6 +78,23 @@ module.exports.updateUser = async (req, res) => {
     ).select('-password');
 
     res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+/**
+ * @path DELETE /api/users/:userId
+ * @desc update user
+ * @access PRIVATE
+ */
+module.exports.deleteUser = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    await User.findByIdAndDelete(userId, { new: true });
+
+    res.status(200).json({ _Id: userId });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Internal server error' });

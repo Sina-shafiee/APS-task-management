@@ -5,7 +5,17 @@ const darkMode: PaletteMode = 'dark';
 
 export const light = {
   palette: {
-    mode: lightMode
+    type: lightMode,
+    primary: {
+      main: '#6b6b6b'
+    },
+    secondary: {
+      main: '#f50057'
+    },
+    background: {
+      default: '#efefef',
+      paper: '#fdfdfd'
+    }
   }
 };
 

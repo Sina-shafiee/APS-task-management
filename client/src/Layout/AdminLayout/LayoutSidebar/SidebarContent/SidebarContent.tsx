@@ -20,7 +20,7 @@ const SidebarContent = () => {
                 backgroundColor: '#404040'
               }
             : {
-                backgroundColor: '#082ec5'
+                backgroundColor: '#757575'
               }
         }
       }}

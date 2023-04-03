@@ -28,7 +28,7 @@ const LayoutSidebar = () => {
             flexDirection: 'column'
           }
         }}
-        backgroundColor={isDark ? '#272727' : '#1976d2'}
+        backgroundColor={isDark ? '#272727' : '#6b6b6b'}
       >
         <SidebarHeader />
         <SidebarContent />

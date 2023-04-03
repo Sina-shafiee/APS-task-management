@@ -20,6 +20,7 @@ import { StyledThemeToggle } from '../../../components';
 import { useColors } from '../../../hooks';
 import { logoutUser } from '../../../api/auth';
 import { useMutation, useQueryClient } from 'react-query';
+import { baseApi } from '../../../api';
 
 const NavbarMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -31,6 +32,7 @@ const NavbarMenu = () => {
     onSuccess: (res) => {
       if (res.data.message === 'success') {
         queryClient.clear();
+        baseApi.defaults.headers.common.Authorization = null;
         navigate('/');
         toast.success('logged out');
       }

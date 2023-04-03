@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import { getCurrentUser } from '../api/auth';
 import { CircularProgress, Stack } from '@mui/material';
 
-const ProtectedRoute = ({ children }: PropsWithChildren) => {
+const AuthWrapper = ({ children }: PropsWithChildren) => {
   const {
     data: response,
     isLoading,
@@ -15,6 +15,7 @@ const ProtectedRoute = ({ children }: PropsWithChildren) => {
     queryFn: getCurrentUser,
     retry: false,
     staleTime: Infinity,
+    refetchOnWindowFocus: false,
     onError: () => {
       console.clear();
     },
@@ -38,8 +39,7 @@ const ProtectedRoute = ({ children }: PropsWithChildren) => {
       </Stack>
     );
   }
-
-  if (isError) {
+  if (isError && location?.pathname !== '/') {
     return <Navigate to='/' replace />;
   }
 
@@ -51,7 +51,14 @@ const ProtectedRoute = ({ children }: PropsWithChildren) => {
     return <Navigate to='/admin' replace />;
   }
 
+  if (
+    response?.data &&
+    (location.pathname === '/' || location.pathname === '/sign-up')
+  ) {
+    return <Navigate to='/user' replace />;
+  }
+
   return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default AuthWrapper;

@@ -1,5 +1,6 @@
-import { Close } from '@mui/icons-material';
-import { Button, Dialog, DialogActions, Stack } from '@mui/material';
+import { useState } from 'react';
+import { Dialog } from '@mui/material';
+
 import { User } from '../../../../../types/user';
 
 import EditForm from './EditForm';
@@ -19,26 +20,46 @@ const ViewUserDialog = ({
   createdAt,
   skills,
   social,
-  language
+  language,
+  _id
 }: ViewUserDialogProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
+  const setNotEditing = () => {
+    setIsEditing(false);
+  };
+
+  const setEditing = () => {
+    setIsEditing(true);
+  };
+
   return (
     <Dialog fullWidth maxWidth='sm' open={isModalOpen} onClose={closeModal}>
-      {isEditing ? <EditForm /> : <InitialContent />}
-      <DialogActions>
-        <Stack direction='row' gap={2}>
-          <Button>Delete</Button>
-          <Button>Edit</Button>
-        </Stack>
-        <Button
-          onClick={closeModal}
-          variant='text'
-          sx={{ position: 'absolute', top: 0, right: 0 }}
-        >
-          <Close />
-        </Button>
-      </DialogActions>
+      {isEditing ? (
+        <EditForm
+          name={name}
+          email={email}
+          createdAt={createdAt}
+          _id={_id}
+          language={language}
+          skills={skills}
+          social={social}
+          closeModal={closeModal}
+          setNotEditing={setNotEditing}
+        />
+      ) : (
+        <InitialContent
+          name={name}
+          email={email}
+          createdAt={createdAt}
+          role={role}
+          language={language}
+          skills={skills}
+          social={social}
+          closeModal={closeModal}
+          setEditing={setEditing}
+        />
+      )}
     </Dialog>
   );
 };
