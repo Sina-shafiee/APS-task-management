@@ -75,7 +75,7 @@ const EditForm = ({
     cacheTime: Infinity,
 
     select: (data) => {
-      return data.data.filter((user) => {
+      return data.filter((user) => {
         if (user.role === 'user') {
           return { _id: user._id, name: user.name, email: user.email };
         }

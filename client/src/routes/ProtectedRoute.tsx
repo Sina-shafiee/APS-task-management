@@ -3,6 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { useQuery } from 'react-query';
 import { getCurrentUser } from '../api/auth';
+import { CircularProgress, Stack } from '@mui/material';
 
 const ProtectedRoute = ({ children }: PropsWithChildren) => {
   const {
@@ -25,19 +26,28 @@ const ProtectedRoute = ({ children }: PropsWithChildren) => {
   const location = useLocation();
 
   if (isLoading) {
-    // todo return loading component
-    return <></>;
+    return (
+      <Stack
+        direction='row'
+        gap={1}
+        alignItems='center'
+        justifyContent='center'
+        sx={{ minHeight: '90vh' }}
+      >
+        <CircularProgress size={40} />
+      </Stack>
+    );
   }
 
   if (isError) {
     return <Navigate to='/' replace />;
   }
 
-  if (response?.data.role === 'user' && location.pathname.includes('/admin')) {
+  if (response?.data?.role === 'user' && location.pathname.includes('/admin')) {
     return <Navigate to='/user' replace />;
   }
 
-  if (response?.data.role === 'admin' && location.pathname.includes('/user')) {
+  if (response?.data?.role === 'admin' && location.pathname.includes('/user')) {
     return <Navigate to='/admin' replace />;
   }
 

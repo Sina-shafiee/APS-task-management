@@ -24,6 +24,7 @@ const ViewTaskDialog = ({
   const { data, isLoading } = useQuery({
     queryKey: ['user', userId],
     staleTime: Infinity,
+    retry: 1,
     queryFn: (context) => {
       const { queryKey } = context;
       return getSingleUser(queryKey[1]);

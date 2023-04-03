@@ -52,7 +52,7 @@ module.exports.createTask = async (req, res) => {
 
   try {
     const newTask = await Task.create({ title, desc, userId });
-    return res.status(404).json(newTask);
+    return res.status(200).json(newTask);
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }

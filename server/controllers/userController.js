@@ -7,8 +7,27 @@ const User = require('../models/userModel');
  */
 module.exports.getUsers = async (_, res) => {
   try {
-    const users = await User.find({});
-    res.status(200).json({ message: 'success', data: users });
+    const users = await User.find({}).select('-password').sort('-createdAt');
+
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+/**
+ * @path GET /api/users/:userId
+ * @desc get  user by id
+ * @access PRIVATE
+ */
+module.exports.getSingleUser = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'user not found' });
+    }
+    res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ message: 'Internal server error' });
   }

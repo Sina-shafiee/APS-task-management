@@ -7,6 +7,7 @@ const connect = require('./db/connect');
 
 const authRouter = require('./routes/authRoutes');
 const taskRouter = require('./routes/taskRouter');
+const userRouter = require('./routes/userRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -22,6 +23,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRouter);
 app.use('/api/tasks', taskRouter);
+app.use('/api/users', userRouter);
 
 const startup = async () => {
   try {

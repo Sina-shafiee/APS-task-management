@@ -34,12 +34,18 @@ const TaskCard = ({
       <Card>
         <CardContent>
           <Typography
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: '1',
+              WebkitBoxOrient: 'vertical'
+            }}
             variant='h5'
             component='h4'
             color='text.secondary'
-            gutterBottom
           >
-            {title.length > 15 ? title.slice(0, 15) + '..' : title}
+            {title}
           </Typography>
           <Typography
             sx={{

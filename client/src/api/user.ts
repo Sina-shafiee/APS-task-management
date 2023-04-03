@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+
 import { UpdateUser, User } from '../types/user';
 import { baseApi } from './base';
 
@@ -10,6 +10,7 @@ export const getSingleUser = (userId: string) => {
   return baseApi.get(`/users/${userId}`);
 };
 
-export const getAllUsers = (): Promise<AxiosResponse<User[], any>> => {
-  return baseApi.get('/users');
+export const getAllUsers = async (): Promise<User[]> => {
+  const res = await baseApi.get('/users');
+  return res.data;
 };

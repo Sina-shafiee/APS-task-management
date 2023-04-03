@@ -35,7 +35,7 @@ const InitialContent = ({
       </DialogContent>
       <DialogContent>
         <DialogContentText>
-          user:{' '}
+          User:{' '}
           {isLoading ? (
             <Skeleton
               width='89px'
@@ -49,7 +49,7 @@ const InitialContent = ({
               component='span'
               sx={{ display: 'inline' }}
             >
-              {userName ?? 'user'}
+              {userName ?? 'Deleted User'}
             </Typography>
           )}{' '}
         </DialogContentText>
@@ -60,7 +60,7 @@ const InitialContent = ({
           })}
         </DialogContentText>
         <DialogContentText>
-          it is {isCompleted ? 'completed' : 'not done yet'}
+          It is {isCompleted ? 'completed' : 'not done yet'}
         </DialogContentText>
       </DialogContent>
     </div>

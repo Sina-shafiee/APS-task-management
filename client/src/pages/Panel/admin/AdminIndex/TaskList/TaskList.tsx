@@ -4,13 +4,14 @@ import { getAllTasks } from '../../../../../api/tasks';
 import TaskCard from '../TaskCard/TaskCard';
 
 const TaskList = () => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, isRefetching } = useQuery({
     queryFn: getAllTasks,
     queryKey: ['all-tasks'],
-    staleTime: Infinity
+    staleTime: Infinity,
+    cacheTime: Infinity
   });
 
-  if (isLoading) {
+  if (isLoading || isRefetching) {
     // todo render skeleton
     return <></>;
   }

@@ -1,7 +1,7 @@
 module.exports = (req, res, next) => {
   const { currentUser } = req;
   const isAdmin =
-    currentUser.role === 'admin' || currentUser.role === 'super-admin';
+    currentUser?.role === 'admin' || currentUser?.role === 'super-admin';
 
   if (isAdmin) {
     next();

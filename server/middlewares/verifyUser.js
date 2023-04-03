@@ -18,9 +18,10 @@ module.exports = async (req, res, next) => {
     }
     try {
       const user = await User.findById(payload.id).select('-password');
-
-      req.currentUser = user;
-      next();
+      if (user) {
+        req.currentUser = user;
+        next();
+      }
     } catch (err) {
       return res.status(500).json({ message: 'Internal server error' });
     }
