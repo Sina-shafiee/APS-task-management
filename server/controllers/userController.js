@@ -61,5 +61,25 @@ module.exports.createUser = async (req, res) => {
  * @access PRIVATE
  */
 module.exports.updateUser = async (req, res) => {
-  const { name, skills, language } = req.body;
+  const { userId } = req.params;
+  const { name, skills, language, email, social } = req.body;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        name,
+        email,
+        skills,
+        language,
+        social
+      },
+      { new: true }
+    ).select('-password');
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
