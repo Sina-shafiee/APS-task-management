@@ -1,26 +1,12 @@
 import { Grid } from '@mui/material';
-import { useQuery } from 'react-query';
-import { getAllTasks } from '../../../../../api/task';
+import { Task } from '../../../../../types/task';
 import TaskCard from '../TaskCard/TaskCard';
 
-const TaskList = () => {
-  const { data, isLoading, isError, isRefetching } = useQuery({
-    queryFn: getAllTasks,
-    queryKey: ['all-tasks'],
-    staleTime: Infinity,
-    cacheTime: Infinity
-  });
+export type TaskListProps = {
+  data: Task[];
+};
 
-  if (isLoading || isRefetching) {
-    // todo render skeleton
-    return <></>;
-  }
-
-  if (isError) {
-    // todo render error el
-    return <></>;
-  }
-
+const TaskList = ({ data }: TaskListProps) => {
   return (
     <Grid marginTop={4} marginBottom={4} spacing={2} container>
       {data?.map((task) => {

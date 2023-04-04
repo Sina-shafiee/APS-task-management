@@ -1,7 +1,34 @@
-import { Button, Container, Stack, Typography } from '@mui/material';
+import {
+  Button,
+  Container,
+  LinearProgress,
+  Stack,
+  Typography
+} from '@mui/material';
+
+import { useQuery } from 'react-query';
+
+import { FetchError } from '../../../../components/Global';
+import { getAllUsers } from '../../../../api';
+
 import UserList from './UserList/UserList';
 
 const People = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryFn: getAllUsers,
+    queryKey: ['all-users'],
+    staleTime: Infinity,
+    cacheTime: Infinity
+  });
+
+  if (isLoading) {
+    return <LinearProgress />;
+  }
+
+  if (isError) {
+    return <FetchError />;
+  }
+
   return (
     <Container maxWidth='lg' sx={{ p: '1rem' }}>
       <Stack
@@ -15,7 +42,7 @@ const People = () => {
         </Typography>
         <Button variant='contained'>Add new </Button>
       </Stack>
-      <UserList />
+      <UserList data={data!} />
     </Container>
   );
 };

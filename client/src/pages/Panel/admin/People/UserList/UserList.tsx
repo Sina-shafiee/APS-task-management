@@ -1,26 +1,8 @@
 import { Grid } from '@mui/material';
-import { useQuery } from 'react-query';
-import { getAllUsers } from '../../../../../api/user';
 import UserCard from '../UserCard/UserCard';
+import { UserListProps } from './index.types';
 
-const UserList = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryFn: getAllUsers,
-    queryKey: ['all-users'],
-    staleTime: Infinity,
-    cacheTime: Infinity
-  });
-
-  if (isLoading) {
-    // todo create skeleton
-    return <></>;
-  }
-
-  if (isError) {
-    // todo create error el
-    return <></>;
-  }
-
+const UserList = ({ data }: UserListProps) => {
   return (
     <Grid
       marginTop={4}

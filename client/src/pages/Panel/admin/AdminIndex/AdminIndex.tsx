@@ -1,10 +1,37 @@
-import { Button, Container, Stack, Typography } from '@mui/material';
+import {
+  Button,
+  Container,
+  LinearProgress,
+  Stack,
+  Typography
+} from '@mui/material';
+
 import { useState } from 'react';
+
+import { useQuery } from 'react-query';
+import { getAllTasks } from '../../../../api';
+
+import { FetchError } from '../../../../components/Global';
 import CreateTask from './CreateTask/CreateTask';
 import TaskList from './TaskList/TaskList';
 
 const AdminIndex = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const { data, isLoading, isError } = useQuery({
+    queryFn: getAllTasks,
+    queryKey: ['all-tasks'],
+    staleTime: Infinity,
+    cacheTime: Infinity
+  });
+
+  if (isLoading) {
+    return <LinearProgress color='secondary' />;
+  }
+
+  if (isError) {
+    return <FetchError />;
+  }
 
   const openCreateTaskModal = () => {
     setIsCreateModalOpen(true);
@@ -29,7 +56,7 @@ const AdminIndex = () => {
           Add New
         </Button>
       </Stack>
-      <TaskList />
+      <TaskList data={data!} />
       <CreateTask
         isCreateModalOpen={isCreateModalOpen}
         closeCreateTaskModal={closeCreateTaskModal}
