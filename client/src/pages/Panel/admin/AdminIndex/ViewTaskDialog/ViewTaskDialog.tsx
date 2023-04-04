@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, DialogActions } from '@mui/material';
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { deleteTask } from '../../../../../api/tasks';
+import { deleteTask } from '../../../../../api/task';
 import { getSingleUser } from '../../../../../api/user';
 import { Task } from '../../../../../types/task';
 import EditForm from './EditForm';

@@ -8,16 +8,15 @@ import languages from '../../../../../data/languages';
 import skills from '../../../../../data/skills';
 import { User } from '../../../../../types/user';
 
-import AutoComplete from './AutoComplete';
 import { ValidationError } from '../../../../../components/Global';
 import { DefaultsValues, FormProps } from '../index.types';
+
+import AutoComplete from './AutoComplete';
 
 const Form = ({ mutate, mutationResult }: FormProps) => {
   const queryClient = useQueryClient();
 
-  const userData = queryClient.getQueryData<{ data: User }>(
-    'current-user'
-  )?.data;
+  const userData = queryClient.getQueryData<User>('current-user');
 
   const [defaultValues, setDefaultValues] = useState<DefaultsValues>({
     name: userData?.name ?? '',

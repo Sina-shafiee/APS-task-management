@@ -11,7 +11,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { createTask } from '../../../../../api/tasks';
+import { createTask } from '../../../../../api/task';
 import { getAllUsers } from '../../../../../api/user';
 
 import { Task } from '../../../../../types/task';

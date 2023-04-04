@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { Task } from '../types/task';
-import { baseApi } from './base';
+import { Task } from '../../types/task';
+import { baseApi } from '../base';
 
 export const getUserTasks = (): Promise<AxiosResponse<Task[]>> => {
   return baseApi.get('/tasks/user');

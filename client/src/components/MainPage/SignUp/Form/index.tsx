@@ -1,17 +1,14 @@
-import { toast } from 'react-toastify';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Stack, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 
-import { Stack, TextField } from '@mui/material';
-
-import { signUp } from '../../../../api';
-
+import { UserRegisterType, CustomErrorType } from '../../../../types';
 import { ValidationError } from '../../../Global';
 import { FormFooter } from '../../FormFooter';
-
-import { UserRegisterType, CustomErrorType } from '../../../../types';
+import { signUp } from '../../../../api';
 
 export const Form = () => {
   const {
@@ -27,27 +24,23 @@ export const Form = () => {
   });
   const navigate = useNavigate();
 
-  const { mutate, isLoading } = useMutation(
-    (data: UserRegisterType) => {
-      return signUp(data);
+  const { mutate, isLoading } = useMutation({
+    mutationFn: signUp,
+    onSuccess: async () => {
+      toast.info('Info: #Account created!');
+
+      await (() => new Promise((resolve) => setTimeout(resolve, 1000)))();
+      navigate('/');
     },
-    {
-      onSuccess: async () => {
-        toast.info('Info: #Account created!');
-
-        await (() => new Promise((resolve) => setTimeout(resolve, 1000)))();
-        navigate('/');
-      },
-      onError: (data: AxiosError<CustomErrorType>) => {
-        const message: string =
-          data?.response?.data?.message ||
-          'Something went wrong please try again later';
-        toast.error(`Error #${message}`);
-      }
+    onError: (data: AxiosError<CustomErrorType>) => {
+      const message: string =
+        data?.response?.data?.message ||
+        'Something went wrong please try again later';
+      toast.error(`Error #${message}`);
     }
-  );
+  });
 
-  const SubmitForm: SubmitHandler<FieldValues> = (data) => {
+  const SubmitForm: SubmitHandler<UserRegisterType> = (data) => {
     const { name, email, password } = data;
 
     mutate({ name, email, password });

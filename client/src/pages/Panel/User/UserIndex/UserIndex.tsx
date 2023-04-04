@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
-import { getUserTasks } from '../../../../api/tasks';
+import { getUserTasks } from '../../../../api/task';
 import NoTaskMessage from './NoTaskMessage';
 import TasksSkeleton from './Skeleton';
 import TaskList from './TaskList';

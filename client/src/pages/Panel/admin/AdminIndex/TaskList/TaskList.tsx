@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { useQuery } from 'react-query';
-import { getAllTasks } from '../../../../../api/tasks';
+import { getAllTasks } from '../../../../../api/task';
 import TaskCard from '../TaskCard/TaskCard';
 
 const TaskList = () => {

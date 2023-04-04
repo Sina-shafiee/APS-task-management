@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
-import { toggleIsCompleted } from '../../../../../api/tasks';
+import { toggleIsCompleted } from '../../../../../api/task';
 import { Task } from '../../../../../types/task';
 
 export type TaskDialogProps = {

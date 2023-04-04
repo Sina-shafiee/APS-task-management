@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { refreshToken } from './auth';
+import { refreshToken } from '../auth';
 
 export const baseApi = axios.create({
   baseURL: 'http://localhost:5000/api',

@@ -3,8 +3,8 @@ import { Menu, MenuItem } from 'react-pro-sidebar';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { baseApi } from '../../../../api';
-import { logoutUser } from '../../../../api/auth';
+
+import { baseApi, logoutUser } from '../../../../api';
 import { useColors } from '../../../../hooks';
 
 const SidebarFooter = () => {
@@ -15,8 +15,8 @@ const SidebarFooter = () => {
 
   const { mutate } = useMutation({
     mutationFn: logoutUser,
-    onSuccess: (res) => {
-      if (res?.data?.message === 'success') {
+    onSuccess: (data) => {
+      if (data?.message === 'success') {
         queryClient.clear();
         baseApi.defaults.headers.common.Authorization = null;
         navigate('/');

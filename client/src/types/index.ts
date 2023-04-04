@@ -12,3 +12,13 @@ export type UserLoginType = {
 export type CustomErrorType = {
   message?: string;
 };
+
+export type SuccessLoginResponseType = {
+  message: string;
+  access_token: string;
+  user: {
+    email: string;
+    _id: string;
+    role: string;
+  };
+};

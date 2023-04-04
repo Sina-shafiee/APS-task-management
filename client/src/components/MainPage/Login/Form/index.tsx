@@ -1,18 +1,15 @@
-import { Stack, TextField } from '@mui/material';
 import { useMutation, useQueryClient } from 'react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Stack, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
+
+import { UserLoginType, CustomErrorType } from '../../../../types';
 
 import { ValidationError } from '../../../Global';
-import { useNavigate } from 'react-router-dom';
-
+import { baseApi, login } from '../../../../api';
 import { FormFooter } from '../../index';
-
-import { baseApi } from '../../../../api';
-import { login } from '../../../../api/auth';
-
-import { AxiosError } from 'axios';
-import { UserLoginType, CustomErrorType } from '../../../../types';
 
 export const Form = () => {
   const {
@@ -30,15 +27,14 @@ export const Form = () => {
   const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: (data: UserLoginType) => {
-      return login(data);
-    },
-    onSuccess: async (res) => {
+    mutationFn: login,
+    onSuccess: async (data) => {
       const {
         message,
         access_token,
         user: { role }
-      } = res.data;
+      } = data;
+
       if (message === 'success') {
         baseApi.defaults.headers.common.Authorization = `Bearer ${access_token}`;
         queryClient.invalidateQueries(['current-user']);
@@ -73,6 +69,7 @@ export const Form = () => {
 
     return '';
   };
+
   return (
     <Stack
       component='form'

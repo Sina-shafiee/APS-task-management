@@ -1,5 +1,6 @@
 import { MouseEvent, useState } from 'react';
 
+import { useMutation, useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -14,13 +15,10 @@ import {
   Divider
 } from '@mui/material';
 import { Logout, Person } from '@mui/icons-material';
+import { StyledThemeToggle } from '../../../components/styled';
 
-import { StyledThemeToggle } from '../../../components';
-
+import { baseApi, logoutUser } from '../../../api';
 import { useColors } from '../../../hooks';
-import { logoutUser } from '../../../api/auth';
-import { useMutation, useQueryClient } from 'react-query';
-import { baseApi } from '../../../api';
 
 const NavbarMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -29,8 +27,8 @@ const NavbarMenu = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: logoutUser,
-    onSuccess: (res) => {
-      if (res.data.message === 'success') {
+    onSuccess: (data) => {
+      if (data?.message === 'success') {
         queryClient.clear();
         baseApi.defaults.headers.common.Authorization = null;
         navigate('/');

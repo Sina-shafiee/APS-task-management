@@ -1,16 +1,12 @@
 import type { PropsWithChildren } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-
-import { useQuery } from 'react-query';
-import { getCurrentUser } from '../api/auth';
 import { CircularProgress, Stack } from '@mui/material';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useQuery } from 'react-query';
+
+import { getCurrentUser } from '../api/auth';
 
 const AuthWrapper = ({ children }: PropsWithChildren) => {
-  const {
-    data: response,
-    isLoading,
-    isError
-  } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['current-user'],
     queryFn: getCurrentUser,
     retry: false,
@@ -19,7 +15,7 @@ const AuthWrapper = ({ children }: PropsWithChildren) => {
     onError: () => {
       console.clear();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       console.clear();
     }
   });
@@ -43,18 +39,15 @@ const AuthWrapper = ({ children }: PropsWithChildren) => {
     return <Navigate to='/' replace />;
   }
 
-  if (response?.data?.role === 'user' && location.pathname.includes('/admin')) {
+  if (data?.role === 'user' && location.pathname.includes('/admin')) {
     return <Navigate to='/user' replace />;
   }
 
-  if (response?.data?.role === 'admin' && location.pathname.includes('/user')) {
+  if (data?.role === 'admin' && location.pathname.includes('/user')) {
     return <Navigate to='/admin' replace />;
   }
 
-  if (
-    response?.data &&
-    (location.pathname === '/' || location.pathname === '/sign-up')
-  ) {
+  if (data && (location.pathname === '/' || location.pathname === '/sign-up')) {
     return <Navigate to='/user' replace />;
   }
 

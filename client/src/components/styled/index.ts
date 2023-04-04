@@ -1,0 +1,1 @@
+export { StyledThemeToggle } from './StyledThemeToggle';

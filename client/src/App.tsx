@@ -10,13 +10,7 @@ import Routes from './routes/Routes';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    mutations: {
-      retry: 1
-    }
-  }
-});
+const queryClient = new QueryClient();
 
 function App() {
   const { isDark } = useColors();
