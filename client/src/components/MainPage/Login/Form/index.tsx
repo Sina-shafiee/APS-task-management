@@ -1,24 +1,30 @@
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-
 import { Stack, TextField } from '@mui/material';
-
-import { FormFooter } from '../../components/FormFooter';
-import { ValidationError } from '../../../../components';
-import { UserLoginType } from '../../../../types';
 import { useMutation, useQueryClient } from 'react-query';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { login } from '../../../../api/auth';
-import { useNavigate } from 'react-router-dom';
-import { AxiosError } from 'axios';
-import { CustomErrorType } from '../../index.types';
-import { baseApi } from '../../../../api';
 
-const Form = () => {
+import { ValidationError } from '../../../Global';
+import { useNavigate } from 'react-router-dom';
+
+import { FormFooter } from '../../index';
+
+import { baseApi } from '../../../../api';
+import { login } from '../../../../api/auth';
+
+import { AxiosError } from 'axios';
+import { UserLoginType, CustomErrorType } from '../../../../types';
+
+export const Form = () => {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm<UserLoginType>({
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  });
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -53,7 +59,7 @@ const Form = () => {
     }
   });
 
-  const SubmitForm: SubmitHandler<FieldValues> = (data) => {
+  const SubmitForm: SubmitHandler<UserLoginType> = (data) => {
     const { email, password } = data;
     mutate({ email, password });
   };
@@ -107,5 +113,3 @@ const Form = () => {
     </Stack>
   );
 };
-
-export default Form;

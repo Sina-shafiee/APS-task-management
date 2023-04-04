@@ -9,7 +9,7 @@ import skills from '../../../../../data/skills';
 import { User } from '../../../../../types/user';
 
 import AutoComplete from './AutoComplete';
-import { ValidationError } from '../../../../../components';
+import { ValidationError } from '../../../../../components/Global';
 import { DefaultsValues, FormProps } from '../index.types';
 
 const Form = ({ mutate, mutationResult }: FormProps) => {

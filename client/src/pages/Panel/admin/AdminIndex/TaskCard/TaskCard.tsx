@@ -40,7 +40,7 @@ const TaskCard = ({
               display: '-webkit-box',
               WebkitLineClamp: '1',
               WebkitBoxOrient: 'vertical',
-              textTransform: 'capitalize !important'
+              textTransform: 'capitalize'
             }}
             variant='h5'
             component='h4'

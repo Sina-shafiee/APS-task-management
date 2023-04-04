@@ -8,18 +8,23 @@ import { Stack, TextField } from '@mui/material';
 
 import { signUp } from '../../../../api';
 
-import { ValidationError } from '../../../../components';
-import { FormFooter } from '../../components/FormFooter';
+import { ValidationError } from '../../../Global';
+import { FormFooter } from '../../FormFooter';
 
-import { CustomErrorType } from '../../index.types';
-import { UserRegisterType } from '../../../../types';
+import { UserRegisterType, CustomErrorType } from '../../../../types';
 
-const Form = () => {
+export const Form = () => {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm<UserRegisterType>({
+    defaultValues: {
+      email: '',
+      name: '',
+      password: ''
+    }
+  });
   const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation(
@@ -114,5 +119,3 @@ const Form = () => {
     </Stack>
   );
 };
-
-export default Form;

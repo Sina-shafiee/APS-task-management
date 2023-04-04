@@ -1,13 +1,7 @@
 import { Button, CircularProgress, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-export type FormFooterProps = {
-  isLoading: boolean;
-  btnTxt: string;
-  infoTxt: string;
-  linkTxt: string;
-  linkUrl: string;
-};
+import { FormFooterProps } from './index.types';
 
 export const FormFooter = ({
   isLoading,

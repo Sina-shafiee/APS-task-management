@@ -8,9 +8,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import Routes from './routes/Routes';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
-// import { ReactQueryDevtools } from 'react-query/devtools';
 import { ProSidebarProvider } from 'react-pro-sidebar';
-const queryClient = new QueryClient();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      retry: 1
+    }
+  }
+});
 
 function App() {
   const { isDark } = useColors();
@@ -22,7 +28,7 @@ function App() {
           <CssBaseline />
           <Routes />
           <ToastContainer
-            position='top-right'
+            position='bottom-center'
             autoClose={5000}
             hideProgressBar
             newestOnTop={false}
