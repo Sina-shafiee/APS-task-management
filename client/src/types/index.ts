@@ -22,3 +22,16 @@ export type SuccessLoginResponseType = {
     role: string;
   };
 };
+
+export type ToggleTaskType = {
+  isCompleted: boolean;
+  taskId: string;
+};
+
+export type EditUserFormDefaultsValues = {
+  name: string | undefined;
+  github: string | undefined;
+  linkedin: string | undefined;
+  skills: string[];
+  language: string[];
+};

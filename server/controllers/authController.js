@@ -156,7 +156,7 @@ module.exports.updateCurrentUser = async (req, res) => {
       { name, skills, social, language },
       { new: true }
     );
-    res.status(200).json({ message: 'success', user: updatedUser });
+    res.status(200).json(updatedUser);
   } catch (error) {
     res
       .status(500)

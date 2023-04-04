@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 
-const NoTaskMessage = () => {
+export const NoTaskMessage = () => {
   return (
     <Stack
       sx={{ minHeight: '70vh' }}
@@ -21,5 +21,3 @@ const NoTaskMessage = () => {
     </Stack>
   );
 };
-
-export default NoTaskMessage;

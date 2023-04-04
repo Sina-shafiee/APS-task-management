@@ -11,16 +11,7 @@ import {
 
 import { DoneAll, RemoveDone } from '@mui/icons-material';
 import TaskDialog from '../TaskDialog';
-
-export type TaskCardProps = {
-  _id: string;
-  title: string;
-  desc: string;
-  isCompleted: boolean;
-  userId: string;
-  isFetching: boolean;
-  createdAt: string;
-};
+import { TaskCardProps } from './index.types';
 
 const TaskCard = ({
   _id,
@@ -78,18 +69,17 @@ const TaskCard = ({
           <Button size='small' onClick={handleClickOpen}>
             View
           </Button>
-          {open && (
-            <TaskDialog
-              createdAt={createdAt}
-              userId={userId}
-              _id={_id}
-              title={title}
-              desc={desc}
-              isFetching={isFetching}
-              isCompleted={isCompleted}
-              handleClose={handleClose}
-            />
-          )}
+          <TaskDialog
+            createdAt={createdAt}
+            userId={userId}
+            _id={_id}
+            title={title}
+            desc={desc}
+            open={open}
+            isFetching={isFetching}
+            isCompleted={isCompleted}
+            handleClose={handleClose}
+          />
         </CardActions>
 
         {isCompleted ? (

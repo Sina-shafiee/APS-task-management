@@ -1,8 +1,8 @@
 import { Autocomplete, TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import { AutoCompleteProps } from '../index.types';
+import { AutoCompleteProps } from './index.types';
 
-const AutoComplete = ({
+export const AutoComplete = ({
   isUpdating,
   control,
   inputName,
@@ -11,7 +11,7 @@ const AutoComplete = ({
 }: AutoCompleteProps) => {
   return (
     <Controller
-      name={inputName}
+      name={inputName as any}
       control={control}
       render={({ field }) => {
         const value = Array.isArray(field.value) ? field.value : [field.value];
@@ -39,5 +39,3 @@ const AutoComplete = ({
     />
   );
 };
-
-export default AutoComplete;

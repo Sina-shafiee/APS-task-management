@@ -3,13 +3,13 @@ import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { updateCurrentUser } from '../../../../api/user';
 
-import Form from './Form';
+import { Form } from '../../../../components/UserPanel/UserProfile';
 
 import bg from '../../../../assets/profile-bg.svg';
 
 const UserProfile = () => {
   const queryClient = useQueryClient();
-  const { mutate, data: response } = useMutation({
+  const { mutate, data } = useMutation({
     mutationFn: updateCurrentUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['current-user'] });
@@ -53,7 +53,7 @@ const UserProfile = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} md={7}>
-          <Form mutationResult={response?.data?.user} mutate={mutate} />
+          <Form mutationResult={data} mutate={mutate} />
         </Grid>
       </Grid>
     </Container>

@@ -1,6 +1,6 @@
 import { Card, Grid, Skeleton, Stack } from '@mui/material';
 
-const TasksSkeleton = () => {
+export const TasksSkeleton = () => {
   return (
     <Stack maxWidth='lg' sx={{ marginTop: 6, p: 0 }}>
       <Skeleton width='170px' height='50px' animation='wave' />
@@ -23,5 +23,3 @@ const TasksSkeleton = () => {
     </Stack>
   );
 };
-
-export default TasksSkeleton;

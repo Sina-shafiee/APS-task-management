@@ -4,27 +4,29 @@ import { useQueryClient } from 'react-query';
 
 import { Button, Grid, Stack, TextField } from '@mui/material';
 
-import languages from '../../../../../data/languages';
-import skills from '../../../../../data/skills';
-import { User } from '../../../../../types/user';
+import languages from '../../../../data/languages';
+import skills from '../../../../data/skills';
+import { User } from '../../../../types/user';
 
-import { ValidationError } from '../../../../../components/Global';
-import { DefaultsValues, FormProps } from '../index.types';
+import { ValidationError } from '../../../Global';
+import { FormProps } from './index.types';
+import { EditUserFormDefaultsValues } from '../../../../types';
 
-import AutoComplete from './AutoComplete';
+import { AutoComplete } from '../../../Global';
 
-const Form = ({ mutate, mutationResult }: FormProps) => {
+export const Form = ({ mutate, mutationResult }: FormProps) => {
   const queryClient = useQueryClient();
 
   const userData = queryClient.getQueryData<User>('current-user');
 
-  const [defaultValues, setDefaultValues] = useState<DefaultsValues>({
-    name: userData?.name ?? '',
-    github: userData?.social?.github ?? '',
-    linkedin: userData?.social?.linkedin ?? '',
-    skills: userData?.skills ?? [],
-    language: userData?.language ?? []
-  });
+  const [defaultValues, setDefaultValues] =
+    useState<EditUserFormDefaultsValues>({
+      name: userData?.name ?? '',
+      github: userData?.social?.github ?? '',
+      linkedin: userData?.social?.linkedin ?? '',
+      skills: userData?.skills ?? [],
+      language: userData?.language ?? []
+    });
 
   const {
     control,
@@ -32,7 +34,7 @@ const Form = ({ mutate, mutationResult }: FormProps) => {
     reset,
     register,
     formState: { errors }
-  } = useForm<DefaultsValues>({
+  } = useForm<EditUserFormDefaultsValues>({
     mode: 'onBlur',
     defaultValues
   });
@@ -61,7 +63,7 @@ const Form = ({ mutate, mutationResult }: FormProps) => {
     setIsUpdating(true);
   };
 
-  const updateUser: SubmitHandler<DefaultsValues> = (data) => {
+  const updateUser: SubmitHandler<EditUserFormDefaultsValues> = (data) => {
     const { github, name, linkedin, language, skills } = data;
 
     if (github && name && linkedin && language && skills) {
@@ -138,16 +140,16 @@ const Form = ({ mutate, mutationResult }: FormProps) => {
         inputName='skills'
         options={skills}
         placeholder='Chose your skills'
-        control={control}
         isUpdating={isUpdating}
+        control={control}
       />
 
       <AutoComplete
         inputName='language'
         options={languages}
         placeholder='Chose your language'
-        control={control}
         isUpdating={isUpdating}
+        control={control}
       />
 
       <Stack
@@ -163,5 +165,3 @@ const Form = ({ mutate, mutationResult }: FormProps) => {
     </Stack>
   );
 };
-
-export default Form;

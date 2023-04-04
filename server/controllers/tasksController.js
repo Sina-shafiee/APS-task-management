@@ -106,7 +106,6 @@ module.exports.toggleCompleteState = async (req, res) => {
     }
 
     if (task.userId.toString() !== _id.toString()) {
-      console.log(task.userId, _id);
       return res.status(401).json({
         message: "Unauthorized, you don't have access to edit this task"
       });

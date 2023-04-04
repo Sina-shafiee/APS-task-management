@@ -1,8 +1,9 @@
 import { UpdateUser, User } from '../../types/user';
 import { baseApi } from '../base';
 
-export const updateCurrentUser = (data: UpdateUser) => {
-  return baseApi.patch('/auth/me', data);
+export const updateCurrentUser = async (data: UpdateUser): Promise<User> => {
+  const res = await baseApi.patch('/auth/me', data);
+  return res.data;
 };
 
 export const getSingleUser = (userId: string) => {

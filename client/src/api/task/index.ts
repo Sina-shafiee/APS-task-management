@@ -1,19 +1,19 @@
 import { AxiosResponse } from 'axios';
+import { ToggleTaskType } from '../../types';
 import { Task } from '../../types/task';
 import { baseApi } from '../base';
 
-export const getUserTasks = (): Promise<AxiosResponse<Task[]>> => {
-  return baseApi.get('/tasks/user');
+export const getUserTasks = async (): Promise<Task[]> => {
+  const res = await baseApi.get('/tasks/user');
+  return res.data;
 };
 
-export const toggleIsCompleted = ({
-  isCompleted,
-  taskId
-}: {
-  isCompleted: boolean;
-  taskId: string;
-}) => {
-  return baseApi.patch(`/tasks/user/${taskId}`, { isCompleted });
+export const toggleIsCompleted = async (
+  data: ToggleTaskType
+): Promise<Task> => {
+  const { isCompleted, taskId } = data;
+  const res = await baseApi.patch(`/tasks/user/${taskId}`, { isCompleted });
+  return res.data;
 };
 
 export const getAllTasks = async (): Promise<Task[]> => {

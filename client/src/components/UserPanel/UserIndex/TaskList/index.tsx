@@ -1,13 +1,9 @@
 import { Grid, Typography } from '@mui/material';
-import { Task } from '../../../../../types/task';
 import TaskCard from '../TaskCard';
 
-export type TaskListProps = {
-  tasks: Task[];
-  isFetching: boolean;
-};
+import { TaskListProps } from './index.types';
 
-const TaskList = ({ tasks, isFetching }: TaskListProps) => {
+export const TaskList = ({ tasks, isFetching }: TaskListProps) => {
   return (
     <>
       <Typography variant='h5' marginTop={6} component='h2'>
@@ -30,5 +26,3 @@ const TaskList = ({ tasks, isFetching }: TaskListProps) => {
     </>
   );
 };
-
-export default TaskList;
