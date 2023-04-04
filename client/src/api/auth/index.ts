@@ -1,7 +1,6 @@
 import { baseApi } from '../base';
 
 import { User } from '../../types/user';
-
 import {
   SuccessLoginResponseType,
   UserLoginType,

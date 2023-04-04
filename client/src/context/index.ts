@@ -1,1 +1,1 @@
-export { ColorProvider, colorContext } from './colors/ColorProvider';
+export { CustomThemeWrapper, themeContext } from './colors';

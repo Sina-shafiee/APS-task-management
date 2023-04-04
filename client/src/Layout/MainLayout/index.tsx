@@ -1,10 +1,12 @@
 import { Outlet } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
-import { useColors } from '../../hooks/useColors';
+
+import { useTheme } from '../../hooks';
 
 const MainLayout = () => {
-  const { toggleTheme, isDark } = useColors();
+  const { toggleTheme, isDark } = useTheme();
   return (
     <>
       <Button

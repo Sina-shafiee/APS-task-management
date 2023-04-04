@@ -1,11 +1,11 @@
 import { createContext, PropsWithChildren, useState } from 'react';
 
-export const colorContext = createContext({
+export const themeContext = createContext({
   toggleTheme: () => {},
   isDark: true
 });
 
-export const ColorProvider = ({ children }: PropsWithChildren) => {
+export const CustomThemeWrapper = ({ children }: PropsWithChildren) => {
   const [isDark, setIsDark] = useState(true);
 
   const toggleTheme = () => {
@@ -13,8 +13,8 @@ export const ColorProvider = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <colorContext.Provider value={{ toggleTheme, isDark }}>
+    <themeContext.Provider value={{ toggleTheme, isDark }}>
       {children}
-    </colorContext.Provider>
+    </themeContext.Provider>
   );
 };

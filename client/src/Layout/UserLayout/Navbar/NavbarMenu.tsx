@@ -18,11 +18,11 @@ import { Logout, Person } from '@mui/icons-material';
 import { StyledThemeToggle } from '../../../components/styled';
 
 import { baseApi, logoutUser } from '../../../api';
-import { useColors } from '../../../hooks';
+import { useTheme } from '../../../hooks';
 
 const NavbarMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const { isDark, toggleTheme } = useColors();
+  const { isDark, toggleTheme } = useTheme();
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation({

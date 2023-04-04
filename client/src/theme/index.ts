@@ -1,2 +1,2 @@
-export { ColorProvider, colorContext } from '../context/colors/ColorProvider';
+export { CustomThemeWrapper, themeContext } from '../context';
 export { dark, light } from './Colors/colorPalettes';

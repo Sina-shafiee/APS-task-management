@@ -1,13 +1,13 @@
 import { Box } from '@mui/material';
 import { Sidebar, sidebarClasses } from 'react-pro-sidebar';
-import { useColors } from '../../../hooks';
+import { useTheme } from '../../../hooks';
 
 import SidebarContent from './SidebarContent/SidebarContent';
 import SidebarFooter from './SidebarFooter/SidebarFooter';
 import SidebarHeader from './SidebarHeader/SidebarHeader';
 
 const LayoutSidebar = () => {
-  const { isDark } = useColors();
+  const { isDark } = useTheme();
 
   return (
     <Box

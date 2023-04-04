@@ -1,6 +1,6 @@
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { dark, light } from './theme';
-import { useColors } from './hooks';
+import { useTheme } from './hooks';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +13,7 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 const queryClient = new QueryClient();
 
 function App() {
-  const { isDark } = useColors();
+  const { isDark } = useTheme();
 
   return (
     <ThemeProvider theme={isDark ? createTheme(dark) : createTheme(light)}>

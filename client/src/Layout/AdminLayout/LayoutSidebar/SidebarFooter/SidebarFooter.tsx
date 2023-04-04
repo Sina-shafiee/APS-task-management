@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { baseApi, logoutUser } from '../../../../api';
-import { useColors } from '../../../../hooks';
+import { useTheme } from '../../../../hooks';
 
 const SidebarFooter = () => {
-  const { isDark, toggleTheme } = useColors();
+  const { isDark, toggleTheme } = useTheme();
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
