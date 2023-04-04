@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import {
   Autocomplete,
   Button,
@@ -6,22 +8,17 @@ import {
   Typography,
   Dialog
 } from '@mui/material';
-import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { createTask } from '../../../../../api/task';
-import { getAllUsers } from '../../../../../api/user';
+import { createTask, getAllUsers } from '../../../../api';
 
-import { Task } from '../../../../../types/task';
+import { CreateTaskType, Task } from '../../../../types/task';
+import { CreateTaskProps } from './index.types';
+import { toast } from 'react-toastify';
 
-type CreateTaskProps = {
-  isCreateModalOpen: boolean;
-  closeCreateTaskModal: () => void;
-};
-
-const CreateTask = ({
+export const CreateTask = ({
   closeCreateTaskModal,
   isCreateModalOpen
 }: CreateTaskProps) => {
@@ -33,7 +30,7 @@ const CreateTask = ({
     formState: { errors },
     control,
     reset
-  } = useForm({
+  } = useForm<CreateTaskType>({
     reValidateMode: 'onSubmit',
     defaultValues: {
       title: '',
@@ -63,33 +60,34 @@ const CreateTask = ({
   const queryClient = useQueryClient();
   const { data: users, isLoading: isLoadingUsers } = useQuery({
     queryFn: getAllUsers,
+    queryKey: ['all-users'],
     staleTime: Infinity,
     cacheTime: Infinity,
 
     select: (data) => {
-      return data.filter((user) => {
+      return data?.filter((user) => {
         if (user.role === 'user') {
           return { _id: user._id, name: user.name, email: user.email };
         }
-
         return false;
       });
-    },
-    queryKey: ['all-users']
+    }
   });
 
   const { mutate, isLoading: isUpdating } = useMutation({
     mutationFn: createTask,
-    retry: 2,
-    mutationKey: 'update-task',
-    onSuccess: (res) => {
-      const prevTasks: Task[] | undefined =
-        queryClient.getQueryData('all-tasks');
-      const updatedTasks = [res.data, ...prevTasks!];
+    mutationKey: 'create-task',
+    retry: 1,
+    onSuccess: (data) => {
+      const prevTasks = queryClient.getQueryData('all-tasks') as Task[];
+      if (prevTasks) {
+        const updatedTasks = [data, ...prevTasks];
 
-      queryClient.setQueryData('all-tasks', updatedTasks);
-      closeCreateTaskModal();
-      reset();
+        queryClient.setQueryData('all-tasks', updatedTasks);
+        closeCreateTaskModal();
+        toast.success('Task assigned');
+        reset();
+      }
     }
   });
 
@@ -210,5 +208,3 @@ const CreateTask = ({
     </Dialog>
   );
 };
-
-export default CreateTask;

@@ -6,16 +6,9 @@ import {
   Typography
 } from '@mui/material';
 
-type InitialContentProps = {
-  title: string;
-  isCompleted: boolean;
-  isLoading: boolean;
-  userName: string | undefined;
-  createdAt: string;
-  desc: string;
-};
+import { InitialContentProps } from './index.types';
 
-const InitialContent = ({
+export const InitialContent = ({
   createdAt,
   desc,
   isCompleted,
@@ -66,5 +59,3 @@ const InitialContent = ({
     </div>
   );
 };
-
-export default InitialContent;

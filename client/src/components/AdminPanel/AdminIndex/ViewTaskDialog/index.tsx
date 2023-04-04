@@ -1,17 +1,17 @@
-import { Box, Button, Dialog, DialogActions } from '@mui/material';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { Box, Button, Dialog, DialogActions } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { deleteTask } from '../../../../../api/task';
-import { getSingleUser } from '../../../../../api/user';
-import { Task } from '../../../../../types/task';
-import EditForm from './EditForm';
-import InitialContent from './InitialContent';
 
-type ViewTaskDialogProps = Task & {
-  closeModal(): void;
-};
+import { deleteTask, getSingleUser } from '../../../../api';
 
-const ViewTaskDialog = ({
+import { EditForm } from './EditForm';
+import { InitialContent } from './InitialContent';
+
+import { Task } from '../../../../types/task';
+import { ViewTaskDialogProps } from './index.types';
+
+export const ViewTaskDialog = ({
   title,
   desc,
   isCompleted,
@@ -21,6 +21,7 @@ const ViewTaskDialog = ({
   _id
 }: ViewTaskDialogProps) => {
   const queryClient = useQueryClient();
+
   const { data, isLoading } = useQuery({
     queryKey: ['user', userId],
     staleTime: Infinity,
@@ -30,6 +31,20 @@ const ViewTaskDialog = ({
       return getSingleUser(queryKey[1]);
     }
   });
+
+  const { mutate } = useMutation({
+    mutationFn: deleteTask,
+    onSuccess: (data) => {
+      const prevTaskList = queryClient.getQueryData('all-tasks') as Task[];
+      const filterDeleted = prevTaskList?.filter(
+        (task) => task._id !== data._id
+      );
+
+      queryClient.setQueryData('all-tasks', filterDeleted);
+      toast.success('Task deleted');
+    }
+  });
+
   const [isEditing, setIsEditing] = useState(false);
 
   const setEditing = () => {
@@ -38,24 +53,16 @@ const ViewTaskDialog = ({
   const setNotEditing = () => {
     setIsEditing(false);
   };
-
-  const { mutate } = useMutation({
-    mutationFn: deleteTask,
-    onSuccess: (res) => {
-      const prevTaskList: Task[] | undefined =
-        queryClient.getQueryData('all-tasks');
-      const filterDeleted = prevTaskList?.filter((task) => task._id !== _id);
-
-      queryClient.setQueryData('all-tasks', filterDeleted);
-    }
-  });
+  const deleteTaskFnc = () => {
+    mutate(_id);
+  };
 
   return (
     <Dialog open={true} maxWidth='sm' fullWidth={true} onClose={closeModal}>
       {!isEditing ? (
         <>
           <InitialContent
-            userName={data?.data?.name}
+            userName={data?.name}
             title={title}
             isCompleted={isCompleted}
             createdAt={createdAt}
@@ -70,7 +77,7 @@ const ViewTaskDialog = ({
             </Button>
             <Box>
               <Button
-                onClick={() => mutate(_id)}
+                onClick={deleteTaskFnc}
                 color='warning'
                 variant='contained'
               >

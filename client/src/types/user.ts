@@ -17,6 +17,7 @@ export type UpdateUser = {
   name: string;
   skills: string[];
   language: string[];
+  email?: string;
   social: {
     github: string;
     linkedin: string;

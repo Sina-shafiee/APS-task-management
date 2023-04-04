@@ -134,9 +134,9 @@ module.exports.deleteTask = async (req, res) => {
   const { taskId } = req.params;
 
   try {
-    await Task.findByIdAndDelete(taskId);
+    const deletedTask = await Task.findByIdAndDelete(taskId, { new: false });
 
-    res.status(200).json({});
+    res.status(200).json(deletedTask);
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }

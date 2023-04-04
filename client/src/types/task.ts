@@ -6,3 +6,11 @@ export type Task = {
   userId: string;
   createdAt: string;
 };
+
+export type CreateTaskType = {
+  title: string;
+  desc: string;
+  userId: string;
+};
+
+export type UpdateTaskType = CreateTaskType;

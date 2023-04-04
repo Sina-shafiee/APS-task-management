@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { DoneAll, RemoveDone } from '@mui/icons-material';
 import {
   Button,
@@ -7,13 +9,12 @@ import {
   Grid,
   Typography
 } from '@mui/material';
-import { useState } from 'react';
-import { Task } from '../../../../../types/task';
-import ViewTaskDialog from '../ViewTaskDialog/ViewTaskDialog';
 
-type TaskCardProps = Task;
+import { ViewTaskDialog } from '../ViewTaskDialog';
 
-const TaskCard = ({
+import { TaskCardProps } from './index.types';
+
+export const TaskCard = ({
   _id,
   desc,
   isCompleted,
@@ -101,5 +102,3 @@ const TaskCard = ({
     </Grid>
   );
 };
-
-export default TaskCard;

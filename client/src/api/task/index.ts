@@ -1,7 +1,7 @@
-import { AxiosResponse } from 'axios';
-import { ToggleTaskType } from '../../types';
-import { Task } from '../../types/task';
 import { baseApi } from '../base';
+
+import { ToggleTaskType } from '../../types';
+import { CreateTaskType, Task, UpdateTaskType } from '../../types/task';
 
 export const getUserTasks = async (): Promise<Task[]> => {
   const res = await baseApi.get('/tasks/user');
@@ -17,27 +17,23 @@ export const toggleIsCompleted = async (
 };
 
 export const getAllTasks = async (): Promise<Task[]> => {
-  return (await baseApi.get('/tasks')).data;
+  const res = await baseApi.get('/tasks');
+  return res.data;
 };
 
-export const updateTask = (newData: {
-  title: string;
-  desc: string;
-  isCompleted?: boolean;
-  userId?: string;
-  taskId: string;
-}): Promise<AxiosResponse<Task>> => {
-  return baseApi.patch(`/tasks/${newData.taskId}`, newData);
+export const updateTask = async (
+  newData: UpdateTaskType & { taskId: string }
+): Promise<Task> => {
+  const res = await baseApi.patch(`/tasks/${newData.taskId}`, newData);
+  return res.data;
 };
 
-export const createTask = (newData: {
-  title: string;
-  desc: string;
-  userId?: string;
-}): Promise<AxiosResponse<Task>> => {
-  return baseApi.post(`/tasks`, newData);
+export const createTask = async (newData: CreateTaskType): Promise<Task> => {
+  const res = await baseApi.post(`/tasks`, newData);
+  return res.data;
 };
 
-export const deleteTask = (taskId: string) => {
-  return baseApi.delete(`/tasks/${taskId}`);
+export const deleteTask = async (taskId: string): Promise<Task> => {
+  const res = await baseApi.delete(`/tasks/${taskId}`);
+  return res.data;
 };

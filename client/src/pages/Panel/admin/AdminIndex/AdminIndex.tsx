@@ -12,8 +12,10 @@ import { useQuery } from 'react-query';
 import { getAllTasks } from '../../../../api';
 
 import { FetchError } from '../../../../components/Global';
-import CreateTask from './CreateTask/CreateTask';
-import TaskList from './TaskList/TaskList';
+import {
+  TaskList,
+  CreateTask
+} from '../../../../components/AdminPanel/AdminIndex';
 
 const AdminIndex = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);

@@ -1,12 +1,10 @@
 import { Grid } from '@mui/material';
-import { Task } from '../../../../../types/task';
-import TaskCard from '../TaskCard/TaskCard';
 
-export type TaskListProps = {
-  data: Task[];
-};
+import { TaskCard } from '../TaskCard';
 
-const TaskList = ({ data }: TaskListProps) => {
+import { TaskListProps } from './index.types';
+
+export const TaskList = ({ data }: TaskListProps) => {
   return (
     <Grid marginTop={4} marginBottom={4} spacing={2} container>
       {data?.map((task) => {
@@ -15,5 +13,3 @@ const TaskList = ({ data }: TaskListProps) => {
     </Grid>
   );
 };
-
-export default TaskList;

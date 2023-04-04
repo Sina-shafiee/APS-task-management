@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+
 import {
   Autocomplete,
   Button,
@@ -6,26 +9,17 @@ import {
   Typography,
   Box
 } from '@mui/material';
-import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { updateTask } from '../../../../../api/task';
-import { getAllUsers } from '../../../../../api/user';
+import { updateTask, getAllUsers } from '../../../../../api';
 
-import { Task } from '../../../../../types/task';
+import { Task, UpdateTaskType } from '../../../../../types/task';
+import { EditFormProps } from './index.types';
 
-type EditFormProps = {
-  setNotEditing(): void;
-  closeModal(): void;
-  userId: string;
-  title: string;
-  desc: string;
-  _id: string;
-};
-
-const EditForm = ({
+export const EditForm = ({
   _id,
   setNotEditing,
   closeModal,
@@ -40,7 +34,7 @@ const EditForm = ({
     setValue,
     formState: { errors },
     control
-  } = useForm({
+  } = useForm<UpdateTaskType>({
     reValidateMode: 'onSubmit',
     defaultValues: {
       title: title,
@@ -51,15 +45,11 @@ const EditForm = ({
 
   const descVal = watch('desc');
 
-  const submitEditForm = (d: {
-    title: string;
-    desc: string;
-    userId: string;
-  }) => {
+  const submitEditForm: SubmitHandler<UpdateTaskType> = (data) => {
     mutate({
-      title: d.title,
-      desc: d.desc,
-      userId: d.userId,
+      title: data.title,
+      desc: data.desc,
+      userId: data.userId,
       taskId: _id
     });
   };
@@ -71,6 +61,7 @@ const EditForm = ({
   const queryClient = useQueryClient();
   const { data: users, isLoading: isLoadingUsers } = useQuery({
     queryFn: getAllUsers,
+    queryKey: ['all-users'],
     staleTime: Infinity,
     cacheTime: Infinity,
 
@@ -82,28 +73,28 @@ const EditForm = ({
 
         return false;
       });
-    },
-    queryKey: ['all-users']
+    }
   });
 
   const { mutate, isLoading: isUpdating } = useMutation({
     mutationFn: updateTask,
-    retry: 2,
+    retry: 1,
     mutationKey: 'update-task',
-    onSuccess: (res) => {
+    onSuccess: (data) => {
       const prevData = queryClient.getQueryData('all-tasks') as Task[];
       const updatedData = prevData.map((task) => {
-        if (task._id === res.data._id) {
-          task.createdAt = res.data.createdAt;
-          task.desc = res.data.desc;
-          task.title = res.data.title;
-          task.isCompleted = res.data.isCompleted;
-          task.userId = res.data.userId;
+        if (task._id === data._id) {
+          task.createdAt = data.createdAt;
+          task.desc = data.desc;
+          task.title = data.title;
+          task.isCompleted = data.isCompleted;
+          task.userId = data.userId;
         }
         return task;
       });
 
       queryClient.setQueryData('all-tasks', updatedData);
+      toast.success('Task updated');
       setNotEditing();
     }
   });
@@ -130,7 +121,7 @@ const EditForm = ({
           return (
             <>
               <Autocomplete
-                readOnly={isLoadingUsers}
+                readOnly={isLoadingUsers || isUpdating}
                 ListboxProps={{
                   style: { maxHeight: '129px' }
                 }}
@@ -166,6 +157,7 @@ const EditForm = ({
           required: true
         })}
         label='Title'
+        disabled={isUpdating}
       />
       <ErrorMessage
         errors={errors}
@@ -180,6 +172,7 @@ const EditForm = ({
       <TextField
         multiline
         maxRows={5}
+        disabled={isUpdating}
         value={descVal}
         onChange={(e) => {
           setValue('desc', e.target.value);
@@ -223,5 +216,3 @@ const EditForm = ({
     </Stack>
   );
 };
-
-export default EditForm;
