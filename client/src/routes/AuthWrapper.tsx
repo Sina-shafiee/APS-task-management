@@ -35,7 +35,13 @@ const AuthWrapper = ({ children }: PropsWithChildren) => {
       </Stack>
     );
   }
-  if (isError && location?.pathname !== '/') {
+  if (
+    isError &&
+    (location?.pathname === '/' || location.pathname === '/sign-up')
+  ) {
+    return <>{children}</>;
+  }
+  if (isError) {
     return <Navigate to='/' replace />;
   }
 
