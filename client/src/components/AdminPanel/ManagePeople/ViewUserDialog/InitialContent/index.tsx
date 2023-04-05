@@ -32,7 +32,24 @@ export const InitialContent = ({
 }: InitialContentProps) => {
   return (
     <>
-      <DialogContent>
+      <DialogContent
+        sx={{
+          '::-webkit-scrollbar': {
+            width: '5px'
+          },
+
+          '::-webkit-scrollbar-track': {
+            background: '#f1f1f1'
+          },
+
+          '::-webkit-scrollbar-thumb ': {
+            background: ' #888'
+          },
+          '::-webkit-scrollbar-thumb:hover': {
+            background: '#555'
+          }
+        }}
+      >
         <Typography sx={{ fontSize: '1rem', fontWeight: 700, py: 2 }}>
           Basic Info
         </Typography>
