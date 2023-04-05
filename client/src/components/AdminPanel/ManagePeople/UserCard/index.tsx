@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AccessTime, Email, Person } from '@mui/icons-material';
 import {
   Card,
@@ -8,13 +9,11 @@ import {
   Button,
   CardActions
 } from '@mui/material';
-import { useState } from 'react';
-import { User } from '../../../../../types/user';
-import ViewUserDialog from '../ViewUserDialog/ViewUserDialog';
 
-type UserCardProps = User;
+import { ViewUserDialog } from '../ViewUserDialog';
+import { UserCardProps } from './index.types';
 
-const UserCard = ({
+export const UserCard = ({
   name,
   email,
   _id,
@@ -99,5 +98,3 @@ const UserCard = ({
     </Grid>
   );
 };
-
-export default UserCard;

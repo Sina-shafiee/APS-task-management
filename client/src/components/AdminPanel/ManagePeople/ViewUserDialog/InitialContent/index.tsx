@@ -17,23 +17,9 @@ import {
   Tooltip,
   Typography
 } from '@mui/material';
+import { InitialContentProps } from './index.types';
 
-type InitialContentProps = {
-  skills: string[];
-  name: string;
-  email: string;
-  language: string[];
-  createdAt: string;
-  role: string;
-  social: {
-    linkedin: string;
-    github: string;
-  };
-  closeModal: () => void;
-  setEditing: () => void;
-};
-
-const InitialContent = ({
+export const InitialContent = ({
   createdAt,
   email,
   language,
@@ -245,5 +231,3 @@ const InitialContent = ({
     </>
   );
 };
-
-export default InitialContent;

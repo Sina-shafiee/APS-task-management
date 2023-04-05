@@ -11,7 +11,7 @@ import { useQuery } from 'react-query';
 import { FetchError } from '../../../../components/Global';
 import { getAllUsers } from '../../../../api';
 
-import UserList from './UserList/UserList';
+import { UserList } from '../../../../components/AdminPanel/ManagePeople/UserList';
 
 const People = () => {
   const { data, isLoading, isError } = useQuery({

@@ -1,17 +1,12 @@
 import { useState } from 'react';
 import { Dialog } from '@mui/material';
 
-import { User } from '../../../../../types/user';
+import { EditForm } from './EditForm';
+import { InitialContent } from './InitialContent';
 
-import EditForm from './EditForm';
-import InitialContent from './InitialContent';
+import { ViewUserDialogProps } from './index.types';
 
-type ViewUserDialogProps = User & {
-  isModalOpen: boolean;
-  closeModal: () => void;
-};
-
-const ViewUserDialog = ({
+export const ViewUserDialog = ({
   isModalOpen,
   closeModal,
   name,
@@ -63,5 +58,3 @@ const ViewUserDialog = ({
     </Dialog>
   );
 };
-
-export default ViewUserDialog;

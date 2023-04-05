@@ -29,9 +29,10 @@ export type ToggleTaskType = {
 };
 
 export type EditUserFormDefaultsValues = {
-  name: string | undefined;
-  github: string | undefined;
-  linkedin: string | undefined;
+  name: string;
+  github: string;
+  linkedin: string;
   skills: string[];
   language: string[];
+  email?: string;
 };

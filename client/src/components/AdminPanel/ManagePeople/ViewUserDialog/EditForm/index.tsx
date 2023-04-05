@@ -1,4 +1,5 @@
 import { Close } from '@mui/icons-material';
+import { toast } from 'react-toastify';
 import {
   Autocomplete,
   Box,
@@ -11,37 +12,16 @@ import {
 } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
-import { updateUser } from '../../../../../api/user';
+
 import languages from '../../../../../data/languages';
 import allSkills from '../../../../../data/skills';
+import { updateUser } from '../../../../../api';
+
+import { EditUserFormDefaultsValues } from '../../../../../types';
 import { User } from '../../../../../types/user';
+import { EditFormProps } from './index.types';
 
-type FormInputs = {
-  name: string;
-  email: string;
-  language: string[];
-  skills: string[];
-  linkedin: string;
-  github: string;
-};
-
-type EditFormProps = {
-  skills: string[];
-  name: string;
-  email: string;
-  language: string[];
-  createdAt?: string;
-  _id: string;
-  social: {
-    linkedin: string;
-    github: string;
-  };
-  closeModal: () => void;
-  setNotEditing: () => void;
-};
-
-const EditForm = ({
+export const EditForm = ({
   closeModal,
   setNotEditing,
   name,
@@ -56,7 +36,7 @@ const EditForm = ({
     register,
     control,
     formState: { errors }
-  } = useForm<FormInputs>({
+  } = useForm<EditUserFormDefaultsValues>({
     defaultValues: {
       name,
       email,
@@ -71,10 +51,9 @@ const EditForm = ({
 
   const { mutate, isLoading } = useMutation({
     mutationFn: updateUser,
-    retry: 2,
+    retry: 1,
     onSuccess(data) {
-      const prevData: User[] | undefined =
-        queryClient.getQueryData('all-users');
+      const prevData = queryClient.getQueryData('all-users') as User[];
       const updatedData = prevData?.map((user) => {
         if (user._id === data._id) {
           user.name = data.name;
@@ -93,7 +72,7 @@ const EditForm = ({
     }
   });
 
-  const editUser: SubmitHandler<FormInputs> = (data) => {
+  const editUser: SubmitHandler<EditUserFormDefaultsValues> = (data) => {
     const { linkedin, github, name, email, language, skills } = data;
     mutate({
       name,
@@ -300,5 +279,3 @@ const EditForm = ({
     </>
   );
 };
-
-export default EditForm;

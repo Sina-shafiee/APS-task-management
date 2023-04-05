@@ -7,7 +7,7 @@ import Login from '../pages/Main/Login/Login';
 import SignUp from '../pages/Main/SignUp/SignUp';
 
 import AdminIndex from '../pages/Panel/Admin/AdminIndex/AdminIndex';
-import People from '../pages/Panel/Admin/People/People';
+import ManagePeople from '../pages/Panel/Admin/ManagePeople/ManagePeople';
 
 import UserIndex from '../pages/Panel/User/UserIndex/UserIndex';
 import UserProfile from '../pages/Panel/User/UserProfile/UserProfile';
@@ -52,7 +52,7 @@ const Routes = () => {
       path: '/admin/*',
       children: [
         { index: true, element: <AdminIndex /> },
-        { path: 'people', element: <People /> }
+        { path: 'people', element: <ManagePeople /> }
       ]
     }
   ];
