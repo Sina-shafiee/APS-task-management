@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+import { useQuery } from 'react-query';
 import {
   Button,
   Container,
@@ -6,14 +8,26 @@ import {
   Typography
 } from '@mui/material';
 
-import { useQuery } from 'react-query';
-
 import { FetchError } from '../../../../components/Global';
 import { getAllUsers } from '../../../../api';
 
-import { UserList } from '../../../../components/AdminPanel/ManagePeople/UserList';
+import {
+  CreateUserDialog,
+  UserList
+} from '../../../../components/AdminPanel/ManagePeople';
+import { useState } from 'react';
 
 const People = () => {
+  const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState(false);
+
+  const openCreateUserModal = useCallback(() => {
+    setIsCreateUserModalOpen(true);
+  }, []);
+
+  const closeCreateUserModal = useCallback(() => {
+    setIsCreateUserModalOpen(false);
+  }, []);
+
   const { data, isLoading, isError } = useQuery({
     queryFn: getAllUsers,
     queryKey: ['all-users'],
@@ -40,9 +54,15 @@ const People = () => {
         <Typography variant='h5' component='h2'>
           All Users
         </Typography>
-        <Button variant='contained'>Add new </Button>
+        <Button variant='contained' onClick={openCreateUserModal}>
+          Add new
+        </Button>
       </Stack>
-      <UserList data={data!} />
+      {data && <UserList data={data} />}
+      <CreateUserDialog
+        isModalOpen={isCreateUserModalOpen}
+        closeModal={closeCreateUserModal}
+      />
     </Container>
   );
 };

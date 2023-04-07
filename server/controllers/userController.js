@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const hashPass = require('../utils/hashPass');
 
 /**
  * @path GET /api/users
@@ -39,17 +40,39 @@ module.exports.getSingleUser = async (req, res) => {
  * @access PRIVATE
  */
 module.exports.createUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
-    res
+    return res
       .status(400)
       .json({ message: 'name, email and password field are require' });
   }
 
   try {
-    const newUser = await User.create({ name, email, password });
-    res.status(200).json({ message: 'success', data: newUser });
+    const isAlreadyExist = await User.findOne({ email: email });
+
+    if (isAlreadyExist) {
+      return res.status(400).json({ message: 'Email already in use' });
+    }
+
+    const hashedPass = await hashPass(password);
+
+    const newUser = await User.create({ name, email, password: hashedPass });
+
+    res.status(200).json({
+      _id: newUser._id,
+      email: newUser.email,
+      name: newUser.name,
+      role: newUser.role,
+      createdAt: newUser.createdAt,
+      updatedAt: newUser.updatedAt,
+      skills: newUser.skills,
+      language: newUser.language,
+      social: {
+        github: newUser.social.github,
+        linkedin: newUser.social.linkedin
+      }
+    });
   } catch (err) {
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -79,7 +102,6 @@ module.exports.updateUser = async (req, res) => {
 
     res.status(200).json(updatedUser);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
@@ -91,13 +113,11 @@ module.exports.updateUser = async (req, res) => {
  */
 module.exports.deleteUser = async (req, res) => {
   const { userId } = req.params;
-  console.log(userId);
   try {
     const deletedUser = await User.findByIdAndDelete(userId, { new: false });
 
     res.status(200).json(deletedUser);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };

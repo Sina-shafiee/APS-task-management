@@ -25,7 +25,8 @@ export const Form = ({ mutate, mutationResult }: FormProps) => {
       github: userData?.social?.github ?? '',
       linkedin: userData?.social?.linkedin ?? '',
       skills: userData?.skills ?? [],
-      language: userData?.language ?? []
+      language: userData?.language ?? [],
+      email: ''
     });
 
   const {
@@ -46,7 +47,8 @@ export const Form = ({ mutate, mutationResult }: FormProps) => {
         github: mutationResult.social.github,
         linkedin: mutationResult.social.linkedin,
         skills: mutationResult.skills,
-        language: mutationResult.language
+        language: mutationResult.language,
+        email: ''
       });
     }
   }, [mutationResult]);

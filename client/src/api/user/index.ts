@@ -1,4 +1,4 @@
-import { UpdateUser, User } from '../../types/user';
+import { CreateUser, UpdateUser, User } from '../../types/user';
 import { baseApi } from '../base';
 
 export const updateCurrentUser = async (data: UpdateUser): Promise<User> => {
@@ -25,5 +25,10 @@ export const updateUser = async (
 
 export const deleteUser = async (userId: string): Promise<User> => {
   const res = await baseApi.delete(`/users/${userId}`);
+  return res.data;
+};
+
+export const createUser = async (data: CreateUser): Promise<User> => {
+  const res = await baseApi.post('/users', data);
   return res.data;
 };

@@ -45,7 +45,6 @@ module.exports.getUserTasks = async (req, res) => {
 module.exports.createTask = async (req, res) => {
   const { title, userId, desc } = req.body;
 
-  console.log(req.body);
   if (!title || !userId || !desc) {
     return res.status(400).json({ message: 'All felids are required' });
   }
@@ -120,7 +119,6 @@ module.exports.toggleCompleteState = async (req, res) => {
 
     res.status(200).json(updatedTask);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };

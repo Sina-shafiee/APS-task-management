@@ -33,7 +33,6 @@ module.exports.signUp = async (req, res) => {
     res
       .status(500)
       .json({ message: 'Internal server error. Something went wrong' });
-    console.log(err);
   }
 };
 

@@ -23,3 +23,9 @@ export type UpdateUser = {
     linkedin: string;
   };
 };
+
+export type CreateUser = {
+  name: string;
+  email: string;
+  password: string;
+};

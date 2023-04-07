@@ -34,5 +34,11 @@ export type EditUserFormDefaultsValues = {
   linkedin: string;
   skills: string[];
   language: string[];
-  email?: string;
+  email: string;
+};
+
+export type CreateUserFormValues = {
+  name: string;
+  email: string;
+  password: string;
 };
