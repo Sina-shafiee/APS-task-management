@@ -17,6 +17,10 @@ import {
   Tooltip,
   Typography
 } from '@mui/material';
+import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+import { deleteUser } from '../../../../../api/user';
+import { User } from '../../../../../types/user';
 import { InitialContentProps } from './index.types';
 
 export const InitialContent = ({
@@ -28,8 +32,26 @@ export const InitialContent = ({
   skills,
   closeModal,
   setEditing,
-  social
+  social,
+  _id
 }: InitialContentProps) => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: deleteUser,
+    onSuccess: (data) => {
+      const prevUsers = queryClient.getQueryData('all-users') as User[];
+
+      const filteredUsers = prevUsers.filter((user) => user._id !== data._id);
+
+      queryClient.setQueryData('all-users', filteredUsers);
+      toast.success('User deleted');
+    }
+  });
+
+  const HandleDeleteUser = () => {
+    mutate(_id);
+  };
   return (
     <>
       <DialogContent
@@ -229,7 +251,11 @@ export const InitialContent = ({
       {role === 'user' && (
         <DialogActions>
           <Stack direction='row' gap={1}>
-            <Button variant='contained' color='warning'>
+            <Button
+              variant='contained'
+              onClick={HandleDeleteUser}
+              color='warning'
+            >
               Delete
             </Button>
             <Button variant='contained' onClick={setEditing}>

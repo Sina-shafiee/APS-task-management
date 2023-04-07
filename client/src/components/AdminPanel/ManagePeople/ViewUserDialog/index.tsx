@@ -45,6 +45,7 @@ export const ViewUserDialog = ({
       ) : (
         <InitialContent
           name={name}
+          _id={_id}
           email={email}
           createdAt={createdAt}
           role={role}

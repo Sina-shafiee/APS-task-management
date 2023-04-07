@@ -9,6 +9,7 @@ export type InitialContentProps = {
     linkedin: string;
     github: string;
   };
+  _id: string;
   closeModal: () => void;
   setEditing: () => void;
 };

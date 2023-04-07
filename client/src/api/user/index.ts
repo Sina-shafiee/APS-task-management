@@ -22,3 +22,8 @@ export const updateUser = async (
   const res = await baseApi.patch(`/users/${data.userId}`, data);
   return res.data;
 };
+
+export const deleteUser = async (userId: string): Promise<User> => {
+  const res = await baseApi.delete(`/users/${userId}`);
+  return res.data;
+};

@@ -86,15 +86,16 @@ module.exports.updateUser = async (req, res) => {
 
 /**
  * @path DELETE /api/users/:userId
- * @desc update user
+ * @desc delete user
  * @access PRIVATE
  */
 module.exports.deleteUser = async (req, res) => {
   const { userId } = req.params;
+  console.log(userId);
   try {
-    await User.findByIdAndDelete(userId, { new: true });
+    const deletedUser = await User.findByIdAndDelete(userId, { new: false });
 
-    res.status(200).json({ _Id: userId });
+    res.status(200).json(deletedUser);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Internal server error' });
