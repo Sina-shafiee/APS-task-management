@@ -22,7 +22,8 @@ export const UserCard = ({
   role,
   skills,
   social,
-  updatedAt
+  updatedAt,
+  image
 }: UserCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -93,6 +94,7 @@ export const UserCard = ({
         language={language}
         skills={skills}
         social={social}
+        image={image}
         updatedAt={updatedAt}
       />
     </Grid>
