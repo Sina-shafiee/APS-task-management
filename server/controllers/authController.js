@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
 const hashPass = require('../utils/hashPass');
 const signJwt = require('../utils/signJwt');
+const { cloudinary } = require('../utils/cloudinary');
 
 /**
  * @path POST /api/auth/sign-up
@@ -148,11 +149,17 @@ module.exports.getCurrentUser = (req, res) => {
  */
 module.exports.updateCurrentUser = async (req, res) => {
   const { _id } = req.currentUser;
-  const { name, skills, social, language } = req.body;
+  const { name, skills, social, language, image } = req.body;
   try {
+    const uploadedImage = await cloudinary.uploader.upload(image, {
+      upload_preset: 'aps-taskdo',
+      height: 300,
+      width: 300
+    });
+
     const updatedUser = await User.findByIdAndUpdate(
       _id,
-      { name, skills, social, language },
+      { name, skills, social, language, image: uploadedImage.url },
       { new: true }
     );
     res.status(200).json(updatedUser);

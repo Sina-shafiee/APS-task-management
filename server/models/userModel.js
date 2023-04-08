@@ -25,7 +25,8 @@ const userSchema = new Schema(
       default: 'user'
     },
     skills: [String],
-    language: [String]
+    language: [String],
+    image: String
   },
   { timestamps: true }
 );
