@@ -2,7 +2,8 @@ import axios from 'axios';
 import { refreshToken } from '../auth';
 
 export const baseApi = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL:
+    'https://aps-task-management-backend-kcyek8exb-sina-shafiee.vercel.app/api',
   withCredentials: true
 });
 
