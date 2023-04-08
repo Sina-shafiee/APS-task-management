@@ -67,7 +67,8 @@ module.exports.login = async (req, res) => {
     res.cookie('refresh-token', refreshToken, {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 10),
       httpOnly: true,
-      sameSite: 'lax'
+      sameSite: 'none',
+      secure: true
     });
 
     // generating access token
