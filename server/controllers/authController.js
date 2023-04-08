@@ -98,7 +98,14 @@ module.exports.refreshToken = async (req, res) => {
     return res.status(421).json({ message: 'No refresh token found' });
   }
 
-  const token = cookie.split('=')[1];
+  const refreshTokenCookie = cookie
+    .split(';')
+    .find((cookie) => cookie.trim().startsWith('refresh-token='));
+  if (!refreshTokenCookie) {
+    return res.status(421).json({ message: 'No refresh token found' });
+  }
+
+  const token = refreshTokenCookie.split('=')[1];
 
   jwt.verify(token, process.env.REFRESH_SECRET, (err, payload) => {
     if (err) {
