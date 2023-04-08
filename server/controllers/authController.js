@@ -151,15 +151,25 @@ module.exports.updateCurrentUser = async (req, res) => {
   const { _id } = req.currentUser;
   const { name, skills, social, language, image } = req.body;
   try {
-    const uploadedImage = await cloudinary.uploader.upload(image, {
-      upload_preset: 'aps-taskdo',
-      height: 300,
-      width: 300
-    });
+    let uploadedImage;
+
+    if (image) {
+      uploadedImage = await cloudinary.uploader.upload(image, {
+        upload_preset: 'aps-taskdo',
+        height: 300,
+        width: 300
+      });
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       _id,
-      { name, skills, social, language, image: uploadedImage.url },
+      {
+        name,
+        skills,
+        social,
+        language,
+        image: uploadedImage?.url
+      },
       { new: true }
     );
     res.status(200).json(updatedUser);
