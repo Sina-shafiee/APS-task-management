@@ -5,7 +5,7 @@ import { useTheme } from './hooks';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Routes from './routes/Routes';
+import Routes from './routes/AppRoutes';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ProSidebarProvider } from 'react-pro-sidebar';
