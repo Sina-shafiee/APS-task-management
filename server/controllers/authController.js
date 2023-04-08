@@ -67,8 +67,7 @@ module.exports.login = async (req, res) => {
     res.cookie('refresh-token', refreshToken, {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 10),
       httpOnly: true,
-      sameSite: 'none',
-      secure: true
+      sameSite: 'none'
     });
 
     // generating access token
@@ -92,7 +91,7 @@ module.exports.login = async (req, res) => {
  * @access Private user & admin
  */
 module.exports.refreshToken = async (req, res) => {
-  const cookie = req.headers.cookie;
+  const cookie = req.headers?.cookie;
 
   if (!cookie) {
     return res.status(421).json({ message: 'No refresh token found' });
@@ -101,6 +100,7 @@ module.exports.refreshToken = async (req, res) => {
   const refreshTokenCookie = cookie
     .split(';')
     .find((cookie) => cookie.trim().startsWith('refresh-token='));
+
   if (!refreshTokenCookie) {
     return res.status(421).json({ message: 'No refresh token found' });
   }
@@ -126,8 +126,7 @@ module.exports.refreshToken = async (req, res) => {
 module.exports.logoutUser = (req, res) => {
   try {
     res.clearCookie('refresh-token', {
-      sameSite: 'none',
-      secure: true
+      sameSite: 'none'
     });
     res.status(200).json({ message: 'success' });
   } catch (error) {
