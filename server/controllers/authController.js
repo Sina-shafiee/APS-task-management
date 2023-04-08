@@ -118,7 +118,10 @@ module.exports.refreshToken = async (req, res) => {
  */
 module.exports.logoutUser = (req, res) => {
   try {
-    res.clearCookie('refresh-token');
+    res.clearCookie('refresh-token', {
+      sameSite: 'none',
+      secure: true
+    });
     res.status(200).json({ message: 'success' });
   } catch (error) {
     res
