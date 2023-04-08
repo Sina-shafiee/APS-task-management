@@ -11,6 +11,7 @@ export type User = {
     github: string;
     linkedin: string;
   };
+  image: string;
 };
 
 export type UpdateUser = {
@@ -22,6 +23,7 @@ export type UpdateUser = {
     github: string;
     linkedin: string;
   };
+  image: string;
 };
 
 export type CreateUser = {

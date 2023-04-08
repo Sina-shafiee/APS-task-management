@@ -11,8 +11,9 @@ const UserProfile = () => {
   const queryClient = useQueryClient();
   const { mutate, data } = useMutation({
     mutationFn: updateCurrentUser,
+    retry: 1,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['current-user'] });
+      queryClient.invalidateQueries({ queryKey: 'current-user' });
       toast.success('Profile updated');
     }
   });

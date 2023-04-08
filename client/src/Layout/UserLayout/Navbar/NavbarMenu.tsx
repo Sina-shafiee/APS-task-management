@@ -19,6 +19,7 @@ import { StyledThemeToggle } from '../../../components/styled';
 
 import { baseApi, logoutUser } from '../../../api';
 import { useTheme } from '../../../hooks';
+import { User } from '../../../types/user';
 
 const NavbarMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -36,6 +37,8 @@ const NavbarMenu = () => {
       }
     }
   });
+
+  const userData = queryClient.getQueryData('current-user') as User;
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -58,7 +61,10 @@ const NavbarMenu = () => {
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar
             alt=' Sharp'
-            src='https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250'
+            src={
+              userData?.image ??
+              'https://creazilla-store.fra1.digitaloceanspaces.com/icons/7912768/avatar-icon-md.png'
+            }
           />
         </IconButton>
       </Tooltip>

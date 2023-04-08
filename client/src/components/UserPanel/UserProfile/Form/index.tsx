@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 
-import { Button, Grid, Stack, TextField } from '@mui/material';
+import { Button, Fab, Grid, Stack, TextField } from '@mui/material';
+import { Add } from '@mui/icons-material';
 
 import languages from '../../../../data/languages';
 import skills from '../../../../data/skills';
@@ -13,9 +14,11 @@ import { FormProps } from './index.types';
 import { EditUserFormDefaultsValues } from '../../../../types';
 
 import { AutoComplete } from '../../../Global';
+import { toast } from 'react-toastify';
 
 export const Form = ({ mutate, mutationResult }: FormProps) => {
   const queryClient = useQueryClient();
+  const [userPhoto, setUserPhoto] = useState('');
 
   const userData = queryClient.getQueryData<User>('current-user');
 
@@ -59,17 +62,38 @@ export const Form = ({ mutate, mutationResult }: FormProps) => {
     if (isUpdating) {
       reset(defaultValues);
       setIsUpdating(false);
+      setUserPhoto('');
       return;
     }
 
     setIsUpdating(true);
   };
 
-  const updateUser: SubmitHandler<EditUserFormDefaultsValues> = (data) => {
-    const { github, name, linkedin, language, skills } = data;
+  const imageToBase64 = async (image: any) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    const data = await new Promise((resolve, reject) => {
+      reader.onload = () => resolve(reader.result);
 
-    if (github && name && linkedin && language && skills) {
-      mutate({ social: { github, linkedin }, name, language, skills });
+      reader.onerror = (error) => reject(error);
+    });
+
+    setUserPhoto(data as string);
+    toast.success('image loaded');
+  };
+
+  const updateUser: SubmitHandler<EditUserFormDefaultsValues> = async (
+    data
+  ) => {
+    const { github, name, linkedin, language, skills } = data;
+    if (github && name && linkedin && language && skills && userPhoto) {
+      mutate({
+        social: { github, linkedin },
+        name,
+        language,
+        skills,
+        image: userPhoto
+      });
       setIsUpdating(false);
     }
   };
@@ -153,6 +177,30 @@ export const Form = ({ mutate, mutationResult }: FormProps) => {
         isUpdating={isUpdating}
         control={control}
       />
+      <label htmlFor='upload-photo'>
+        <input
+          style={{ display: 'none' }}
+          onChange={async (e) => {
+            if (e.target?.files) {
+              await imageToBase64(e.target.files[0]);
+            }
+          }}
+          disabled={!isUpdating}
+          accept='image/*'
+          id='upload-photo'
+          type='file'
+        />
+        <Fab
+          color='secondary'
+          size='small'
+          disabled={!isUpdating}
+          component='span'
+          aria-label='add'
+          variant='extended'
+        >
+          <Add /> Upload photo
+        </Fab>
+      </label>
 
       <Stack
         sx={{ mt: '1rem', flexDirection: 'row', alignItems: 'center', gap: 2 }}
