@@ -3,11 +3,11 @@ import AdminLayout from '../Layout/AdminLayout';
 import MainLayout from '../Layout/MainLayout';
 import UserLayout from '../Layout/UserLayout';
 
-import Login from '../pages/Main/Login/Login';
-import SignUp from '../pages/Main/SignUp/SignUp';
+import Login from '../pages/Main/Login';
+import SignUp from '../pages/Main/SignUp';
 
-import AdminIndex from '../pages/Panel/Admin/AdminIndex/AdminIndex';
-import ManagePeople from '../pages/Panel/Admin/ManagePeople/ManagePeople';
+import AdminIndex from '../pages/Panel/Admin/AdminIndex';
+import ManagePeople from '../pages/Panel/Admin/ManagePeople';
 
 import UserIndex from '../pages/Panel/User/UserIndex/UserIndex';
 import UserProfile from '../pages/Panel/User/UserProfile/UserProfile';
